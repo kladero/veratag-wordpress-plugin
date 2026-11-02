@@ -1,0 +1,884 @@
+.veratag-content-overview-section {
+  --veratag-grid-border: var(--veratag-color-border);
+  --veratag-grid-border-strong: var(--veratag-color-border-strong);
+  --veratag-grid-surface: #ffffff;
+  --veratag-grid-text-primary: var(--veratag-color-text-primary);
+  --veratag-grid-text-secondary: var(--veratag-color-text-secondary);
+  --veratag-grid-row-hover: var(--veratag-color-surface-brand-light-extreme);
+  --veratag-grid-group-surface: var(--veratag-color-surface-red-light);
+
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  width: 100%;
+}
+
+/* ============================================================
+ * HEADER
+ * ============================================================ */
+
+.veratag-content-overview-section__header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.veratag-content-overview-section__title {
+  color: var(--veratag-color-text-heading);
+  font-size: var(--veratag-font-size-heading-md);
+  font-weight: 600;
+  line-height: var(--veratag-line-height-heading-md);
+  margin: 0;
+}
+
+.veratag-content-overview-section__description {
+  color: var(--veratag-color-text-secondary);
+  font-size: var(--veratag-font-size-text-md);
+  line-height: var(--veratag-line-height-text-md);
+  margin: 0;
+}
+
+/* ============================================================
+ * FILTER CARD
+ * ============================================================ */
+
+.veratag-content-overview-section__filter-card {
+  background: #ffffff;
+  border: 1px solid var(--veratag-grid-border-strong);
+  border-radius: var(--veratag-panel-border-radius);
+  isolation: isolate;
+  padding: 16px;
+  position: relative;
+  z-index: 10;
+}
+
+.veratag-content-overview-section__toolbar-search-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  min-width: 0;
+  width: 100%;
+}
+
+.veratag-content-overview-section__toolbar-search-input {
+  min-width: 0;
+  width: min(100%, 23rem);
+}
+
+.veratag-content-overview-section__toolbar-search-actions {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.45rem;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.veratag-content-overview-section__toolbar-action-button {
+  align-items: center;
+  background: var(--veratag-color-surface-input);
+  border: 1px solid var(--veratag-color-border-strong);
+  border-radius: var(--veratag-radius-md);
+  color: var(--veratag-color-text-primary);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--veratag-font-family-base);
+  font-size: var(--veratag-font-size-text-md);
+  font-weight: 600;
+  gap: 0.45rem;
+  justify-content: center;
+  line-height: var(--veratag-line-height-text-md);
+  min-height: 2.55rem;
+  padding: 0.45rem 0.8rem;
+  transition:
+    background-color var(--veratag-transition-duration-fast),
+    border-color var(--veratag-transition-duration-fast),
+    box-shadow var(--veratag-transition-duration-fast);
+}
+
+.veratag-content-overview-section__toolbar-action-button:hover {
+  border-color: var(--veratag-color-border-brand);
+}
+
+.veratag-content-overview-section__toolbar-action-button:focus-visible {
+  border-color: var(--veratag-color-border-brand);
+  box-shadow: var(--veratag-shadow-brand);
+  outline: none;
+}
+
+.veratag-content-overview-section__toolbar-action-icon {
+  flex: none;
+  height: 1rem;
+  width: 1rem;
+}
+
+/* ============================================================
+ * FILTER REGION
+ * ============================================================ */
+
+.veratag-content-overview-section__filter-region {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin-top: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition:
+    grid-template-rows 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    margin-top 360ms cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+}
+
+.veratag-content-overview-section__filter-region--visible {
+  grid-template-rows: 1fr;
+  margin-top: 0.85rem;
+  pointer-events: auto;
+}
+
+.veratag-content-overview-section__filter-region--panel-open {
+  overflow: visible;
+}
+
+.veratag-content-overview-section__filter-region-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.veratag-content-overview-section__filter-region--panel-open
+  .veratag-content-overview-section__filter-region-inner {
+  overflow: visible;
+}
+
+.veratag-content-overview-section__filter-buttons {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  min-height: 0;
+  opacity: 0;
+  transform: translateY(-0.35rem);
+  transition:
+    opacity 220ms ease 70ms,
+    transform 360ms cubic-bezier(0.16, 1, 0.3, 1) 50ms;
+  width: 100%;
+}
+
+.veratag-content-overview-section__filter-region--visible
+  .veratag-content-overview-section__filter-buttons {
+  opacity: 1;
+  transform: none;
+}
+
+.veratag-content-overview-section__filter-heading {
+  align-items: center;
+  display: flex;
+  gap: 0.55rem;
+  padding-inline: 0.2rem;
+  width: 100%;
+}
+
+.veratag-content-overview-section__filter-heading-label {
+  color: var(--veratag-grid-text-secondary);
+  font-size: var(--veratag-font-size-text-sm);
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.veratag-content-overview-section__filter-heading-line {
+  background: var(--veratag-grid-border-strong);
+  flex: 1;
+  height: 1px;
+  min-width: 0;
+}
+
+/* ============================================================
+ * FILTER OPTIONS
+ * ============================================================ */
+
+/*
+ * Keep the shared table-filter rows vertically centered.
+ * The content wrapper used by TableFilterButton is block-level by default;
+ * making both the control and content flex containers prevents the checkbox /
+ * radio from sitting a few pixels below the rendered option content.
+ */
+.veratag-content-overview-section .veratag-filter-option {
+  align-items: center;
+}
+
+.veratag-content-overview-section .veratag-filter-option__control {
+  align-items: center;
+  align-self: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  justify-content: center;
+}
+
+.veratag-content-overview-section .veratag-filter-option__content {
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  min-height: 1.5rem;
+  min-width: 0;
+  color: var(--veratag-color-text-secondary);
+  font-size: var(--veratag-font-size-text-md);
+  line-height: var(--veratag-line-height-text-md);
+}
+
+.veratag-content-overview-section__filter-option {
+  align-items: center;
+  color: var(--veratag-color-text-heading);
+  display: inline-flex;
+  font-size: var(--veratag-font-size-text-md);
+  font-weight: 600;
+  gap: 0.5rem;
+  line-height: var(--veratag-line-height-form-field-input-select-row-item, 1.4);
+  max-width: 28rem;
+  min-height: 1.5rem;
+  min-width: 0;
+  width: 100%;
+}
+
+.veratag-content-overview-section__filter-option > span:last-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.veratag-content-overview-section__filter-option--page-url {
+  max-width: 100%;
+}
+
+.veratag-content-overview-section__filter-option-page-url-text {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Content-type / globe icons use masks so they follow text-heading. */
+.veratag-content-overview-section__filter-option-mask-icon {
+  background-color: var(--veratag-color-text-heading);
+  display: inline-block;
+  flex: 0 0 auto;
+  height: 1.1rem;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  width: 1.1rem;
+}
+
+.veratag-content-overview-section__filter-option--required {
+  color: var(--veratag-color-text-red);
+}
+
+.veratag-content-overview-section__filter-option--recommended {
+  color: var(--veratag-color-icon-orange);
+}
+
+/* ============================================================
+ * CONTENT CARD
+ * ============================================================ */
+
+.veratag-content-overview-section__content-card {
+  background: var(--veratag-grid-surface);
+  border: 1px solid var(--veratag-grid-border-strong);
+  border-radius: var(--veratag-panel-border-radius);
+  min-width: 0;
+  /* No overflow clipping here: the rows-per-page dropdown in the footer must
+     be able to extend past the card. The table scroll area clips itself. */
+  position: relative;
+}
+
+.veratag-content-overview-section__table-scroll {
+  border-radius: calc(var(--veratag-panel-border-radius) - 1px)
+    calc(var(--veratag-panel-border-radius) - 1px) 0 0;
+  min-width: 0;
+  overflow-x: visible;
+  overflow-y: auto;
+  position: relative;
+}
+
+.veratag-content-overview-section__table-scroll--loading {
+  min-height: 18rem;
+}
+
+.veratag-content-overview-section__loading-overlay {
+  align-items: center;
+  background: color-mix(in srgb, var(--veratag-grid-surface) 88%, transparent);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  position: absolute;
+  z-index: 5;
+}
+
+.veratag-content-overview-section__content-message {
+  padding: 16px;
+}
+
+/* ============================================================
+ * TABLE
+ * ============================================================ */
+
+.veratag-content-overview-section__content-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  color: var(--veratag-grid-text-primary);
+  table-layout: fixed;
+  width: 100%;
+}
+
+.veratag-content-overview-section__content-table th,
+.veratag-content-overview-section__content-table td {
+  border: 0;
+  text-align: left;
+}
+
+.veratag-content-overview-section__content-table thead th {
+  background: var(--veratag-grid-surface);
+  border-bottom: 1px solid var(--veratag-grid-border-strong);
+  color: var(--veratag-grid-text-primary);
+  font-size: var(--veratag-font-size-text-md);
+  font-weight: 600;
+  line-height: var(--veratag-line-height-text-md);
+  padding: 0.65rem 0.75rem;
+  position: sticky;
+  text-transform: uppercase;
+  top: 0;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.veratag-content-overview-section__content-table tbody td {
+  background: var(--veratag-grid-surface);
+  border-bottom: 1px solid var(--veratag-grid-border);
+  padding: 0.8rem 0.75rem;
+  transition: background-color 120ms ease;
+  vertical-align: top;
+}
+
+.veratag-content-overview-section__content-table
+  tbody
+  tr:not(.veratag-content-overview-section__group-row):hover
+  td {
+  background: var(--veratag-grid-row-hover);
+}
+
+.veratag-content-overview-section__content-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.veratag-content-overview-section__content-column {
+  width: 60%;
+}
+
+.veratag-content-overview-section__status-column {
+  width: 40%;
+}
+
+/* ============================================================
+ * PAGE URL GROUP
+ * ============================================================ */
+
+.veratag-content-overview-section__group-row td {
+  background: var(--veratag-grid-group-surface);
+  border-bottom: 1px solid var(--veratag-grid-border);
+  color: var(--veratag-color-text-primary);
+  font-size: var(--veratag-font-size-text-sm);
+  font-weight: 600;
+  padding: 0.55rem 0.75rem;
+}
+
+.veratag-content-overview-section__group-url {
+  align-items: center;
+  color: var(--veratag-color-text-heading);
+  display: flex;
+  gap: 0.45rem;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.veratag-content-overview-section__group-url-text {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.veratag-content-overview-section__page-url-icon {
+  background-color: var(--veratag-color-text-heading);
+  display: inline-block;
+  flex: 0 0 auto;
+  height: 1.2rem;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  width: 1.2rem;
+}
+
+/* ============================================================
+ * CONTENT CELL
+ * ============================================================ */
+
+.veratag-content-overview-section__content-cell-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.veratag-content-overview-section__content-meta {
+  align-items: center;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.veratag-content-overview-section__content-type {
+  align-items: center;
+  color: var(--veratag-color-text-heading);
+  display: inline-flex;
+  font-weight: 600;
+  gap: 0.4rem;
+}
+
+.veratag-content-overview-section__content-type-icon {
+  background-color: var(--veratag-color-text-heading);
+  display: inline-block;
+  flex: 0 0 auto;
+  height: 1.2rem;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  width: 1.2rem;
+}
+
+.veratag-content-overview-section__html-tag {
+  color: var(--veratag-grid-text-secondary);
+  font-size: var(--veratag-font-size-text-sm);
+  font-weight: 500;
+}
+
+.veratag-content-overview-section__content-id {
+  color: var(--veratag-grid-text-secondary);
+  font-size: var(--veratag-font-size-text-sm);
+  font-weight: 500;
+  max-width: 22rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.veratag-content-overview-section__content-text {
+  color: var(--veratag-grid-text-primary);
+  font-size: var(--veratag-font-size-text-md);
+  line-height: var(--veratag-line-height-text-md);
+  margin: 0;
+  max-width: 42rem;
+  overflow-wrap: anywhere;
+}
+
+.veratag-content-overview-section__image-preview {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.veratag-content-overview-section__image-preview img {
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--veratag-grid-border);
+  border-radius: 4px;
+  max-width: 100%;
+  object-fit: cover;
+  width: 18rem;
+}
+
+.veratag-content-overview-section__image-preview figcaption {
+  color: var(--veratag-grid-text-secondary);
+  font-size: var(--veratag-font-size-text-md);
+  font-weight: 400;
+  line-height: var(--veratag-line-height-text-md);
+  max-width: 26rem;
+  overflow-wrap: anywhere;
+  font-style: italic;
+}
+
+/* ============================================================
+ * DISCLOSURE TREE
+ * ============================================================ */
+
+.veratag-content-overview-section__status-cell-body {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.veratag-content-overview-section__disclosure-tree {
+  --veratag-tree-line-color: var(--veratag-grid-border);
+  --veratag-tree-trunk-x: 0.7rem;
+  --veratag-tree-content-x: 2rem;
+  --veratag-tree-gap: 0.55rem;
+  --veratag-tree-row-height: 1.6rem;
+
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.veratag-content-overview-section__disclosure-root {
+  align-items: center;
+  color: var(--veratag-grid-text-primary);
+  display: inline-flex;
+  font-size: var(--veratag-font-size-text-md);
+  font-weight: 600;
+  gap: 0.4rem;
+  line-height: var(--veratag-line-height-text-md);
+  max-width: 100%;
+  min-height: var(--veratag-tree-row-height);
+  min-width: 0;
+}
+
+.veratag-content-overview-section__disclosure-root-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.veratag-content-overview-section__disclosure-children {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--veratag-tree-gap);
+  margin-top: var(--veratag-tree-gap);
+  max-width: 100%;
+  padding-left: var(--veratag-tree-content-x);
+  position: relative;
+}
+
+.veratag-content-overview-section__disclosure-children::before {
+  border-left: 1px solid var(--veratag-tree-line-color);
+  content: '';
+  height: calc(var(--veratag-tree-gap) + var(--veratag-tree-row-height));
+  left: var(--veratag-tree-trunk-x);
+  pointer-events: none;
+  position: absolute;
+  top: calc(-1 * (var(--veratag-tree-gap) + var(--veratag-tree-row-height) / 2));
+}
+
+.veratag-content-overview-section__disclosure-node {
+  align-items: center;
+  display: flex;
+  max-width: 100%;
+  min-height: var(--veratag-tree-row-height);
+  min-width: 0;
+  position: relative;
+}
+
+.veratag-content-overview-section__disclosure-node::before {
+  border-top: 1px solid var(--veratag-tree-line-color);
+  content: '';
+  left: calc(var(--veratag-tree-trunk-x) - var(--veratag-tree-content-x));
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  width: calc(var(--veratag-tree-content-x) - var(--veratag-tree-trunk-x));
+}
+
+.veratag-content-overview-section__disclosure-node:not(:last-child)::after {
+  border-left: 1px solid var(--veratag-tree-line-color);
+  content: '';
+  height: calc(var(--veratag-tree-row-height) + var(--veratag-tree-gap));
+  left: calc(var(--veratag-tree-trunk-x) - var(--veratag-tree-content-x));
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+}
+
+.veratag-content-overview-section__disclosure-badge .veratag-badge {
+  border-radius: var(--veratag-radius-full);
+  font-weight: 600;
+}
+
+.veratag-content-overview-section__disclosure-badge .veratag-badge__text {
+  font-weight: 600;
+}
+
+.veratag-content-overview-section__configuration-badge .veratag-badge {
+  border-radius: var(--veratag-radius-md);
+  font-weight: 600;
+  transition:
+    background-color 120ms ease,
+    filter 120ms ease;
+}
+
+.veratag-content-overview-section__configuration-badge .veratag-badge__text {
+  font-weight: 600;
+}
+
+/* ============================================================
+ * CONFIGURATION BADGE
+ * ============================================================ */
+
+.veratag-content-overview-section__configuration-link {
+  display: inline-flex;
+  max-width: 100%;
+  text-decoration: none;
+}
+
+.veratag-content-overview-section__configuration-link:hover .veratag-badge {
+  filter: brightness(0.96);
+}
+
+.veratag-content-overview-section__configuration-link:focus-visible {
+  border-radius: var(--veratag-radius-md);
+  box-shadow: var(--veratag-shadow-brand);
+  outline: none;
+}
+
+/* ============================================================
+ * ISSUES TRIGGER
+ * ============================================================ */
+
+.veratag-content-overview-section__issues-anchor {
+  display: inline-flex;
+}
+
+.veratag-content-overview-section__issues-trigger {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  gap: 0.3rem;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.veratag-content-overview-section__issues-trigger:hover {
+  text-decoration-thickness: 2px;
+}
+
+.veratag-content-overview-section__issues-trigger:focus-visible {
+  border-radius: 3px;
+  box-shadow: var(--veratag-shadow-brand);
+  outline: none;
+}
+
+.veratag-content-overview-section__issues-trigger--required {
+  color: var(--veratag-color-text-red);
+}
+
+.veratag-content-overview-section__issues-trigger--recommended {
+  color: var(--veratag-color-icon-orange);
+}
+
+/*
+ * Issue icons are SVG masks so currentColor controls their color.
+ * Required inherits red; recommended inherits orange.
+ */
+.veratag-content-overview-section__issue-icon {
+  background-color: currentColor;
+  display: inline-block;
+  flex: 0 0 auto;
+  height: 1rem;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  width: 1rem;
+}
+
+.veratag-content-overview-section__issues-label {
+  white-space: nowrap;
+}
+
+/* ============================================================
+ * ISSUES POPOVER
+ * ============================================================ */
+
+.veratag-content-overview-section__issues-popover {
+  min-width: 0;
+  padding: 0.25rem;
+}
+
+.veratag-content-overview-section__issues-popover-header {
+  border-bottom: 1px solid var(--veratag-color-border);
+  padding: 0.15rem 0.15rem 0.65rem;
+}
+
+.veratag-content-overview-section__issues-popover-title {
+  color: var(--veratag-color-text-heading);
+  font-size: var(--veratag-font-size-text-md);
+  font-weight: 700;
+  line-height: var(--veratag-line-height-text-md);
+}
+
+.veratag-content-overview-section__issues-popover-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 0.15rem 0.15rem;
+}
+
+.veratag-content-overview-section__issue {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 2rem minmax(0, 1fr);
+}
+
+.veratag-content-overview-section__issue--required {
+  color: var(--veratag-color-text-red);
+}
+
+.veratag-content-overview-section__issue--recommended {
+  color: var(--veratag-color-icon-orange);
+}
+
+.veratag-content-overview-section__issue-icon-wrapper {
+  align-items: center;
+  background: color-mix(in srgb, currentcolor 12%, transparent);
+  border-radius: 50%;
+  display: inline-flex;
+  height: 2rem;
+  justify-content: center;
+  width: 2rem;
+}
+
+.veratag-content-overview-section__issue-icon-wrapper
+  .veratag-content-overview-section__issue-icon {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.veratag-content-overview-section__issue-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.veratag-content-overview-section__issue-headline {
+  color: currentcolor;
+  font-size: var(--veratag-font-size-text-sm);
+  font-weight: 700;
+  line-height: var(--veratag-line-height-text-sm);
+  overflow-wrap: anywhere;
+}
+
+.veratag-content-overview-section__issue-message {
+  color: var(--veratag-grid-text-secondary);
+  font-size: var(--veratag-font-size-text-sm);
+  line-height: var(--veratag-line-height-text-sm);
+  margin-top: 0.3rem;
+  overflow-wrap: anywhere;
+}
+
+/* ============================================================
+ * EMPTY
+ * ============================================================ */
+
+.veratag-content-overview-section__empty-state {
+  color: var(--veratag-grid-text-secondary);
+  font-size: var(--veratag-font-size-text-md);
+  padding: 2rem 1rem !important;
+  text-align: center !important;
+}
+
+/* ============================================================
+ * FOOTER
+ * ============================================================ */
+
+.veratag-content-overview-section__footer {
+  border-top: 1px solid var(--veratag-grid-border-strong);
+  padding: 16px;
+}
+
+/* ============================================================
+ * RESPONSIVE
+ * ============================================================ */
+
+@media (max-width: 760px) {
+  /* Below this width, columns can no longer fit truncated/wrapped content
+     legibly — fall back to a horizontally scrollable, content-sized table
+     instead of squeezing everything into the viewport. */
+  .veratag-content-overview-section__table-scroll {
+    overflow-x: auto;
+  }
+
+  .veratag-content-overview-section__content-table {
+    min-width: 46rem;
+    table-layout: auto;
+  }
+
+  .veratag-content-overview-section__content-column {
+    min-width: 28rem;
+  }
+
+  .veratag-content-overview-section__status-column {
+    min-width: 22rem;
+  }
+
+  .veratag-content-overview-section__toolbar-search-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .veratag-content-overview-section__toolbar-search-input {
+    width: 100%;
+  }
+
+  .veratag-content-overview-section__toolbar-search-actions {
+    align-items: stretch;
+    flex-direction: column;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .veratag-content-overview-section__toolbar-action-button {
+    width: 100%;
+  }
+
+  .veratag-content-overview-section__filter-buttons {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .veratag-content-overview-section__filter-buttons > * {
+    width: 100%;
+  }
+
+  .veratag-content-overview-section__issue {
+    gap: 0.65rem;
+    grid-template-columns: 1.8rem minmax(0, 1fr);
+  }
+
+  .veratag-content-overview-section__issue-icon-wrapper {
+    height: 1.8rem;
+    width: 1.8rem;
+  }
+
+  .veratag-content-overview-section__issue-icon-wrapper
+    .veratag-content-overview-section__issue-icon {
+    height: 1rem;
+    width: 1rem;
+  }
+}

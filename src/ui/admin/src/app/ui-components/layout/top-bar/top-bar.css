@@ -1,0 +1,53 @@
+.veratag-top-bar {
+  background: #ffffff;
+}
+
+.veratag-top-bar__inner {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: var(--veratag-admin-page-layout-max-width);
+  padding: 20px 32px;
+}
+
+.veratag-top-bar__brand-area,
+.veratag-top-bar__actions {
+  align-items: center;
+  display: flex;
+  min-width: 0;
+}
+
+.veratag-top-bar__brand {
+  color: var(--veratag-color-text-heading);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.veratag-top-bar__wordmark {
+  display: block;
+  height: 28px;
+  max-width: 100%;
+  width: auto;
+}
+
+@media (max-width: 900px) {
+  .veratag-top-bar__inner {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .veratag-top-bar__inner {
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .veratag-top-bar__actions {
+    width: 100%;
+  }
+}

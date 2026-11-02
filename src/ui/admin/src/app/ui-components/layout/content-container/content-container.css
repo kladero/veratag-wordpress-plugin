@@ -1,0 +1,19 @@
+.veratag-content-container {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: var(--veratag-admin-page-layout-max-width);
+  padding: 0 32px;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .veratag-content-container {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .veratag-content-container {
+    padding: 0 16px;
+  }
+}

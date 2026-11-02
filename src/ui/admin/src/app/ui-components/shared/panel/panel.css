@@ -1,0 +1,119 @@
+.veratag-panel {
+  background: #ffffff;
+  border: 1px solid var(--veratag-color-border);
+  border-radius: var(--veratag-panel-border-radius);
+  box-shadow: var(--veratag-panel-box-shadow);
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: var(--veratag-panel-padding);
+}
+
+.veratag-panel--red {
+  border-color: var(--veratag-color-border-red);
+}
+
+.veratag-panel--compact {
+  min-height: 100%;
+}
+
+.veratag-panel__header {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.veratag-panel__title {
+  color: var(--veratag-color-text-heading);
+  font-size: var(--veratag-font-size-heading-md);
+  line-height: var(--veratag-line-height-heading-md);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+  min-width: 0;
+}
+
+.veratag-panel__body {
+  display: grid;
+  gap: 10px;
+}
+
+.veratag-panel__text {
+  margin: 10px 0 0 0;
+  color: var(--veratag-color-text-secondary);
+  font-size: var(--veratag-font-size-text-md);
+  line-height: var(--veratag-line-height-text-md);
+}
+
+.veratag-panel__list {
+  color: var(--veratag-color-text-secondary);
+  display: grid;
+  gap: 8px;
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+}
+
+.veratag-panel__list li::marker {
+  color: var(--veratag-color-text-heading);
+}
+
+.veratag-stat-list {
+  display: grid;
+  gap: 14px;
+}
+
+.veratag-stat-list__item {
+  display: grid;
+  gap: 4px;
+}
+
+.veratag-stat-list__label {
+  letter-spacing: 0.02em;
+  color: var(--veratag-color-text-heading);
+  font-size: var(--veratag-font-size-heading-sm);
+  line-height: var(--veratag-line-height-heading-sm);
+  font-weight: 600;
+}
+
+.veratag-stat-list__value {
+  font-weight: 400;
+  color: var(--veratag-color-text-secondary);
+  font-size: var(--veratag-font-size-text-md);
+  line-height: var(--veratag-line-height-text-md);
+  margin: 0;
+}
+
+.veratag-settings-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-start;
+}
+
+.veratag-settings-actions--end {
+  justify-content: flex-end;
+}
+
+@media (max-width: 640px) {
+  .veratag-panel {
+    padding: 16px;
+  }
+
+  .veratag-panel__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .veratag-settings-actions,
+  .veratag-settings-actions--end {
+    justify-content: stretch;
+  }
+
+  .veratag-settings-actions > * {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+}

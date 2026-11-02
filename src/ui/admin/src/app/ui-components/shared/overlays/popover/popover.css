@@ -1,0 +1,129 @@
+/* ============================================================
+ * ANIMATION WRAPPER
+ * ============================================================ */
+
+.veratag-popover__anim {
+  font-family: var(--veratag-font-family-base);
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  transition: opacity 150ms ease;
+  z-index: 10000;
+}
+
+.veratag-popover__anim--visible {
+  opacity: 1;
+}
+
+/* ============================================================
+ * POPOVER
+ * ============================================================ */
+
+.veratag-popover {
+  background: transparent;
+  overflow: visible;
+  pointer-events: none;
+  position: fixed;
+  visibility: hidden;
+}
+
+.veratag-popover--ready {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* ============================================================
+ * INNER
+ * ============================================================ */
+
+.veratag-popover__inner {
+  background: var(--veratag-color-background);
+  border-radius: 12px;
+  box-sizing: border-box;
+  box-shadow:
+    var(--veratag-shadow-lg),
+    8px 0 14px rgba(var(--veratag-shadow-base-color), 0.08);
+  display: flex;
+  flex-direction: column;
+  max-width: calc(100vw - 16px);
+  overflow: hidden;
+  padding: 0.5rem;
+}
+
+.veratag-popover__scroll {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+/* ============================================================
+ * ARROW
+ * ============================================================ */
+
+.veratag-popover__arrow {
+  height: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 0;
+}
+
+/*
+ * Popover below anchor.
+ * Arrow points upward.
+ */
+.veratag-popover--bottom > .veratag-popover__arrow {
+  border-bottom: 8px solid var(--veratag-color-background);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  filter: drop-shadow(0 -2px 2px rgba(var(--veratag-shadow-base-color), 0.1));
+  left: var(--veratag-arrow-left, 24px);
+  top: -8px;
+  transform: translateX(-50%);
+}
+
+/*
+ * Popover above anchor.
+ * Arrow points downward.
+ */
+.veratag-popover--top > .veratag-popover__arrow {
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--veratag-color-background);
+  bottom: -8px;
+  filter: drop-shadow(0 2px 2px rgba(var(--veratag-shadow-base-color), 0.1));
+  left: var(--veratag-arrow-left, 24px);
+  transform: translateX(-50%);
+}
+
+/* ============================================================
+ * OPTIONAL DIRECTION CLASSES
+ * ============================================================ */
+
+.veratag-popover--right {
+  /*
+   * The popover prefers extending from the anchor toward
+   * the right side of the viewport.
+   */
+}
+
+.veratag-popover--left {
+  /*
+   * The popover prefers extending from the anchor toward
+   * the left side of the viewport.
+   */
+}
+
+/* ============================================================
+ * MOBILE
+ * ============================================================ */
+
+@media (max-width: 640px) {
+  .veratag-popover__inner {
+    border-radius: 8px;
+    max-width: calc(100vw - 16px);
+    padding: 0.5rem;
+  }
+}

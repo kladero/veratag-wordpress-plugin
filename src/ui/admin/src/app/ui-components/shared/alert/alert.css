@@ -1,0 +1,41 @@
+.veratag-alert {
+  border: 1px solid transparent;
+  border-radius: var(--veratag-panel-border-radius);
+  display: flex;
+  gap: 6px;
+  padding: 12px 14px;
+  font-size: var(--veratag-font-size-text-md);
+  line-height: var(--veratag-line-height-text-md);
+}
+
+.veratag-alert__label {
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.veratag-alert__content {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.veratag-alert--info {
+  background: var(--veratag-color-surface-blue-light);
+  border-color: var(--veratag-color-border-blue);
+}
+
+.veratag-alert--warning {
+  background: var(--veratag-color-surface-orange-light);
+  border-color: var(--veratag-color-border-orange);
+}
+
+.veratag-alert--error {
+  background: var(--veratag-color-surface-red-light);
+  border-color: var(--veratag-color-border-red);
+}
+
+.veratag-alert--success {
+  background: var(--veratag-color-surface-green-light);
+  border-color: var(--veratag-color-border-green);
+}

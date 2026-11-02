@@ -1,0 +1,36 @@
+.veratag-general-page {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+
+.veratag-general-page__loading {
+  display: grid;
+  justify-items: center;
+  padding: 48px 0;
+}
+
+.veratag-general-page__sections {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.veratag-general-page__section-row {
+  align-items: start;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.veratag-general-page__section-row-stack {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .veratag-general-page__section-row {
+    grid-template-columns: 1fr;
+  }
+}

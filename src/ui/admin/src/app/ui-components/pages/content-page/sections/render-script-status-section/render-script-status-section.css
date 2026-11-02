@@ -1,0 +1,123 @@
+/*
+ * Mirrors the visual rhythm of the content overview section
+ * (content-overview-section.css) so both panels on the disclosures page
+ * line up: same panel gap, header/description spacing and table card.
+ */
+.veratag-render-script-status-section {
+  gap: 14px;
+  min-width: 0;
+  width: 100%;
+}
+
+/* ============================================================
+ * HEADER
+ * ============================================================ */
+
+.veratag-render-script-status-section__header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.veratag-render-script-status-section__title-row {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.veratag-render-script-status-section__title {
+  color: var(--veratag-color-text-heading);
+  font-size: var(--veratag-font-size-heading-md);
+  font-weight: 600;
+  line-height: var(--veratag-line-height-heading-md);
+  margin: 0;
+  min-width: 0;
+}
+
+.veratag-render-script-status-section__description {
+  color: var(--veratag-color-text-secondary);
+  font-size: var(--veratag-font-size-text-md);
+  line-height: var(--veratag-line-height-text-md);
+  margin: 0;
+}
+
+/* ============================================================
+ * TABLE CARD
+ * ============================================================ */
+
+.veratag-render-script-status-section__summary {
+  background: #ffffff;
+  border: 1px solid var(--veratag-color-border-strong);
+  border-radius: var(--veratag-panel-border-radius);
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.veratag-render-script-status-section__table {
+  border-collapse: separate;
+  border-spacing: 0;
+  color: var(--veratag-color-text-primary);
+  min-width: 640px;
+  table-layout: auto;
+  width: 100%;
+}
+
+.veratag-render-script-status-section__table th,
+.veratag-render-script-status-section__table td {
+  border: 0;
+  text-align: left;
+}
+
+.veratag-render-script-status-section__table thead th {
+  background: #ffffff;
+  border-bottom: 1px solid var(--veratag-color-border-strong);
+  color: var(--veratag-color-text-primary);
+  font-size: var(--veratag-font-size-text-md);
+  font-weight: 600;
+  line-height: var(--veratag-line-height-text-md);
+  padding: 0.65rem 0.75rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.veratag-render-script-status-section__table tbody td {
+  background: #ffffff;
+  border-bottom: 1px solid var(--veratag-color-border);
+  color: var(--veratag-color-text-secondary);
+  font-size: var(--veratag-font-size-text-md);
+  line-height: var(--veratag-line-height-text-md);
+  padding: 0.8rem 0.75rem;
+  transition: background-color 120ms ease;
+  vertical-align: top;
+}
+
+.veratag-render-script-status-section__table tbody tr:hover td {
+  background: var(--veratag-color-surface-brand-light-extreme);
+}
+
+.veratag-render-script-status-section__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.veratag-render-script-status-section__meta-value {
+  color: var(--veratag-color-text-heading);
+  display: inline-flex;
+  font-size: var(--veratag-font-size-text-md);
+  font-weight: 600;
+  line-height: var(--veratag-line-height-text-md);
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+  .veratag-render-script-status-section__title-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .veratag-render-script-status-section__table {
+    min-width: 480px;
+  }
+}

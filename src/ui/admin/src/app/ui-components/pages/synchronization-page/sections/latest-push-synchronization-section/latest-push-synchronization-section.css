@@ -1,0 +1,35 @@
+.veratag-latest-push-synchronization-section__table-shell {
+  border: 1px solid var(--veratag-color-border);
+  border-radius: var(--veratag-panel-border-radius);
+  overflow-x: auto;
+}
+
+.veratag-latest-push-synchronization-section__table {
+  border-collapse: collapse;
+  min-width: 680px;
+  width: 100%;
+}
+
+.veratag-latest-push-synchronization-section__table thead {
+  color: var(--veratag-color-text-heading);
+  font-size: var(--veratag-font-size-text-md);
+  line-height: var(--veratag-line-height-text-md);
+  font-weight: 600;
+}
+
+.veratag-latest-push-synchronization-section__table th,
+.veratag-latest-push-synchronization-section__table td {
+  border-bottom: 1px solid var(--veratag-color-border);
+  padding: 12px 14px;
+  text-align: left;
+}
+
+.veratag-latest-push-synchronization-section__table td {
+  color: var(--veratag-color-text-secondary);
+  font-size: var(--veratag-font-size-text-sm);
+  line-height: var(--veratag-line-height-text-sm);
+}
+
+.veratag-latest-push-synchronization-section__table tr:last-child td {
+  border-bottom: 0;
+}

@@ -1,0 +1,51 @@
+.veratag-push-synchronization-configuration-section__actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-top: 12px;
+  width: 100%;
+}
+
+.veratag-push-synchronization-configuration-section__toggle-label {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 0.5rem;
+  font-size: var(--veratag-font-size-form-field-input);
+  color: var(--veratag-color-text-heading);
+  font-weight: 600;
+}
+
+.veratag-push-synchronization-configuration-section__subtitle {
+  color: var(--veratag-color-text-heading);
+  font-size: var(--veratag-font-size-heading-sm);
+  margin: 8px 0 0;
+}
+
+.veratag-push-synchronization-configuration-section__mono-code {
+  margin: 4px auto;
+  display: block;
+  max-width: 100%;
+  width: fit-content;
+  text-align: center;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+  letter-spacing: 0.04em;
+  color: var(--veratag-color-text-heading);
+  font-size: var(--veratag-font-size-text-md);
+  line-height: var(--veratag-line-height-text-md);
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  background-color: var(--veratag-color-disabled-background);
+  border-radius: 12px;
+  padding: 8px;
+}
+
+@media (max-width: 640px) {
+  .veratag-push-synchronization-configuration-section__actions {
+    justify-content: flex-end;
+  }
+}

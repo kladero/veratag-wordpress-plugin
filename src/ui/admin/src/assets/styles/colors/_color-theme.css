@@ -1,0 +1,54 @@
+#veratag-admin-root,
+.veratag-popover__anim,
+.veratag-dialog-portal {
+  --veratag-black-rgb: 0, 0, 0;
+
+  --veratag-white: #ffffff;
+
+  /*  Blue Scale */
+  --veratag-blue-25: #f0f6ff;
+  --veratag-blue-50: #e6f0ff;
+  --veratag-blue-100: #cce0ff;
+  --veratag-blue-200: #99c2ff;
+  --veratag-blue-500: #0066ff; /* Primary */
+  --veratag-blue-500-rgb: 0, 102, 255;
+  --veratag-blue-600: #0052cc;
+  --veratag-blue-600-rgb: 0, 82, 204;
+  --veratag-blue-850: #002255; /* Extra Dark (e.g., for headlines) */
+
+  /*  Gray Scale */
+  --veratag-gray-100: #f3f4f6; /* light background */
+  --veratag-gray-200: #e5e7eb; /* light border, subtle surfaces */
+  --veratag-gray-200-rgb: 229, 231, 235;
+  --veratag-gray-300: #d1d5db; /* medium-light neutral */
+  --veratag-gray-400: #9ca3af; /* muted text, icons */
+  --veratag-gray-600: #5c656b; /* secondary text */
+  --veratag-gray-700: #374151; /* strong neutral, headings on light */
+  --veratag-gray-700-rgb: 55, 65, 81;
+  --veratag-gray-900: #111827; /* primary text, almost black */
+
+  /*  Green Scale */
+  --veratag-green-50: #ecfdf5; /* very light, background */
+  --veratag-green-500: #10b981; /* primary success */
+  --veratag-green-600: #059669;
+  --veratag-green-700: #047857;
+
+  /*  Orange Scale */
+  --veratag-orange-50: #fff7ed; /* very light, background */
+  --veratag-orange-500: #f97316; /* primary warning */
+  --veratag-orange-600: #ea580c;
+  --veratag-orange-600-rgb: 234, 88, 12;
+
+  /*  Red Scale */
+  --veratag-red-100: #fee2e2;
+  --veratag-red-500: #ef4444; /* primary danger */
+  --veratag-red-600: #dc2626;
+  --veratag-red-600-rgb: 220, 38, 38;
+  --veratag-red-700: #b91c1c;
+
+  /*  Yellow Scale */
+  --veratag-yellow-500: #eab308; /* primary attention */
+
+  /*  Violet Scale */
+  --veratag-violet-500: #6c63ff; /* Primary Accent (Brand) */
+}

@@ -1,0 +1,223 @@
+.veratag-input-select {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+}
+
+.veratag-input-select__label {
+  margin: 0;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  font-size: var(--veratag-font-size-form-label-text);
+  line-height: var(--veratag-line-height-form-label-text);
+  font-weight: 500;
+  color: var(--veratag-color-text-heading);
+}
+
+.veratag-input-select__wrapper {
+  position: relative;
+}
+
+.veratag-input-select__control {
+  -webkit-appearance: none;
+  appearance: none;
+  align-items: center;
+  background: var(--veratag-color-surface-input);
+  border: 1px solid var(--veratag-color-border-strong);
+  border-radius: 4px;
+  box-shadow: var(--veratag-shadow-sm);
+  color: var(--veratag-color-text-primary);
+  cursor: pointer;
+  display: flex;
+  gap: 12px;
+  padding: 0.5rem;
+  text-align: left;
+  transition:
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+  width: 100%;
+}
+
+.veratag-input-select__control:hover,
+.veratag-input-select__control:focus-visible {
+  border-color: var(--veratag-color-border-brand);
+}
+
+.veratag-input-select__control:focus-visible {
+  box-shadow: var(--veratag-shadow-brand);
+  outline: none;
+}
+
+.veratag-input-select__placeholder,
+.veratag-input-select__value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--veratag-font-family-base);
+  line-height: var(--veratag-line-height-form-field-input);
+  font-size: var(--veratag-font-size-form-field-input);
+}
+
+.veratag-input-select__placeholder {
+  color: var(--veratag-color-text-secondary);
+}
+
+.veratag-input-select__content,
+.veratag-input-select__option-content {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+}
+
+.veratag-input-select__content {
+  flex: 1;
+}
+
+.veratag-input-select__value {
+  flex: 1;
+}
+
+.veratag-input-select__option-icon {
+  display: block;
+  flex-shrink: 0;
+  height: 16px;
+  width: 16px;
+}
+
+img.veratag-input-select__option-icon {
+  filter: brightness(0) saturate(100%) invert(8%) sepia(11%) saturate(1934%) hue-rotate(178deg)
+    brightness(92%) contrast(93%);
+}
+
+.veratag-input-select__option-icon--sprite {
+  border-radius: 2px;
+}
+
+.veratag-input-select__arrow {
+  display: inline-flex;
+  flex-shrink: 0;
+  transition: transform 140ms ease;
+}
+
+.veratag-input-select__arrow--open {
+  transform: rotate(180deg);
+}
+
+.veratag-input-select__arrow-icon {
+  display: block;
+  filter: var(--veratag-color-filter-text-heading);
+  height: 16px;
+  transform: rotate(90deg);
+  width: 16px;
+}
+
+.veratag-input-select__dropdown {
+  background: var(--veratag-color-surface-input);
+  border: 1px solid var(--veratag-color-border);
+  border-radius: 4px;
+  box-shadow: var(--veratag-shadow-md);
+  left: 0;
+  margin-top: 6px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  transform: translateY(-4px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    max-height 160ms ease;
+  z-index: 20;
+}
+
+.veratag-input-select__dropdown--open {
+  max-height: 260px;
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.veratag-input-select__options {
+  display: grid;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.veratag-input-select__option {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--veratag-color-text-primary);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--veratag-font-size-form-field-input-select-row-item);
+  line-height: var(--veratag-line-height-form-field-input-select-row-item);
+  padding: 0.5rem;
+  text-align: left;
+  transition: background-color 120ms ease;
+  width: 100%;
+}
+
+.veratag-input-select__option-label {
+  color: inherit;
+  display: block;
+  min-width: 0;
+  font: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: inherit;
+}
+
+.veratag-input-select__option:hover,
+.veratag-input-select__option:focus-visible {
+  background: var(--veratag-color-list-item-hover);
+  outline: none;
+}
+
+.veratag-input-select__option--selected {
+  background: var(--veratag-color-list-item-active-background);
+  color: var(--veratag-color-text-heading);
+  font-weight: 600;
+}
+
+.veratag-input-select__option--selected:hover,
+.veratag-input-select__option--selected:focus-visible {
+  background: var(--veratag-color-list-item-active-background-hover);
+}
+
+.veratag-input-select--error .veratag-input-select__control {
+  border-color: var(--veratag-color-border-red);
+}
+
+.veratag-input-select--error .veratag-input-select__control:focus-visible {
+  box-shadow: var(--veratag-shadow-red);
+}
+
+.veratag-input-select__hint,
+.veratag-input-select__error {
+  display: block;
+  margin: 0.25rem 0 0 0;
+  font-size: var(--veratag-font-size-form-hint);
+  line-height: var(--veratag-line-height-form-hint);
+  color: var(--veratag-color-text-secondary);
+  font-family: var(--veratag-font-family-base);
+}
+
+.veratag-input-select__hint {
+  color: var(--veratag-color-text-secondary);
+}
+
+.veratag-input-select__error {
+  color: var(--veratag-color-text-red);
+}

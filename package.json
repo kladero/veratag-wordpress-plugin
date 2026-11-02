@@ -1,0 +1,37 @@
+{
+  "name": "veratag-wordpress-plugin",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Build and package the vera[tag] WordPress plugin",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build:ui": "tsc -b src/ui/admin && vite build --config src/ui/admin/vite.config.ts",
+    "lint:ui": "eslint src/ui/admin && eslint --config tests/ui/eslint.config.js \"tests/ui/**/*.cjs\"",
+    "zip:release": "npm run build:ui && node scripts/build-zip-release.mjs",
+    "test:php": "php tests/php/run.php",
+    "test:ui": "node tests/ui/run.cjs",
+    "test": "npm run test:php && npm run test:ui"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.4",
+    "eslint": "^10.8.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "globals": "^17.7.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.65.0",
+    "vite": "^8.2.0",
+    "prettier": "3.6.2"
+  }
+}

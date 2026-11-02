@@ -1,0 +1,80 @@
+/* Modal portal intentionally lives in document.body, outside WordPress layout.
+   All styles are scoped. Design tokens are scoped to .veratag-dialog-portal. */
+.veratag-dialog-portal {
+  font-family: var(--veratag-font-family-base);
+  color: var(--veratag-color-text-primary);
+}
+
+.veratag-dialog-backdrop {
+  align-items: center;
+  background: rgba(15, 23, 42, 0.56);
+  box-sizing: border-box;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 20px;
+  position: fixed;
+  z-index: 11000;
+}
+
+.veratag-dialog {
+  background: var(--veratag-color-background);
+  border: 1px solid var(--veratag-color-border);
+  border-radius: 12px;
+  box-shadow: var(--veratag-shadow-lg);
+  box-sizing: border-box;
+  color: var(--veratag-color-text-primary);
+  max-height: calc(100dvh - 40px);
+  max-width: 480px;
+  overflow-y: auto;
+  padding: 24px;
+  width: 100%;
+}
+
+.veratag-dialog:focus {
+  outline: none;
+}
+
+.veratag-dialog__title {
+  color: var(--veratag-color-text-heading);
+  font-size: var(--veratag-font-size-heading-lg);
+  line-height: var(--veratag-line-height-heading-lg);
+  margin: 0 0 12px;
+}
+
+.veratag-dialog__content {
+  color: var(--veratag-color-text-secondary);
+  font-size: var(--veratag-font-size-text-md);
+  line-height: var(--veratag-line-height-text-md);
+  overflow-wrap: anywhere;
+}
+
+.veratag-dialog__content p {
+  margin: 0 0 12px;
+}
+.veratag-dialog__content p:last-child {
+  margin-bottom: 0;
+}
+
+.veratag-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.veratag-dialog__actions .veratag-button:focus-visible {
+  outline: 2px solid var(--veratag-color-border-brand);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .veratag-dialog {
+    padding: 20px;
+  }
+  .veratag-dialog__actions .veratag-button {
+    flex: 1;
+  }
+}

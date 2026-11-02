@@ -1,0 +1,16 @@
+#veratag-admin-root,
+.veratag-popover__anim,
+.veratag-dialog-portal {
+  /* Motion duration scale */
+  --veratag-transition-duration-fast: 0.2s;
+
+  --veratag-admin-page-layout-max-width: 1000px;
+
+  --veratag-panel-border-radius: 14px;
+  --veratag-panel-box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+  --veratag-panel-padding: 16px;
+
+  /* Shared corner radius scale for controls and panels. */
+  --veratag-radius-md: 4px;
+  --veratag-radius-full: 9999px;
+}

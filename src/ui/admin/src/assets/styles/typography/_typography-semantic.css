@@ -1,0 +1,45 @@
+#veratag-admin-root,
+.veratag-popover__anim,
+.veratag-dialog-portal {
+  --veratag-font-size-form-label-text: var(--veratag-font-size-300);
+  --veratag-line-height-form-label-text: 1.2;
+  --veratag-font-size-form-hint: var(--veratag-font-size-200);
+  --veratag-line-height-form-hint: 1.2;
+  --veratag-font-size-form-field-input: var(--veratag-font-size-300);
+  --veratag-line-height-form-field-input: 1.2;
+  --veratag-font-size-form-field-input-select-row-item: var(--veratag-font-size-300);
+  --veratag-line-height-form-field-input-select-row-item: 1.4;
+
+  --veratag-font-size-text-sm: var(--veratag-font-size-200);
+  --veratag-line-height-text-sm: var(--veratag-line-height-100);
+
+  --veratag-font-size-text-md: var(--veratag-font-size-300);
+  --veratag-line-height-text-md: var(--veratag-line-height-300);
+
+  --veratag-font-size-heading-sm: var(--veratag-font-size-300);
+  --veratag-line-height-heading-sm: var(--veratag-line-height-100);
+
+  --veratag-font-size-heading-md: var(--veratag-font-size-400);
+  --veratag-line-height-heading-md: var(--veratag-line-height-100);
+
+  --veratag-font-size-heading-lg: var(--veratag-font-size-500);
+  --veratag-line-height-heading-lg: var(--veratag-line-height-100);
+
+  --veratag-font-size-heading-card: var(--veratag-font-size-400);
+  --veratag-line-height-heading-card: var(--veratag-line-height-100);
+
+  --veratag-badge-xs-font-size: var(--veratag-font-size-100);
+  --veratag-badge-xs-padding: 0.25em 0.75em;
+
+  --veratag-badge-sm-font-size: var(--veratag-font-size-150);
+  --veratag-badge-sm-padding: 0.25em 0.75em;
+
+  --veratag-badge-md-font-size: var(--veratag-font-size-200);
+  --veratag-badge-md-padding: 0.25em 0.75em;
+
+  --veratag-badge-lg-font-size: var(--veratag-font-size-300);
+  --veratag-badge-lg-padding: 0.25em 0.75em;
+
+  --veratag-badge-xl-font-size: var(--veratag-font-size-400);
+  --veratag-badge-xl-padding: 0.25em 0.75em;
+}

@@ -1,0 +1,20 @@
+.veratag-verification-file-configuration-section__mono-code {
+  margin: 4px auto 4px;
+  display: block;
+  max-width: 100%;
+  width: fit-content;
+  text-align: center;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+  letter-spacing: 0.04em;
+  color: var(--veratag-color-text-heading);
+  font-size: var(--veratag-font-size-text-md);
+  line-height: var(--veratag-line-height-text-md);
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  background-color: var(--veratag-color-disabled-background);
+  border-radius: 12px;
+  padding: 8px 8px;
+}

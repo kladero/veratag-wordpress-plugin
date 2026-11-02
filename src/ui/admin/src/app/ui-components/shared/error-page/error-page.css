@@ -1,0 +1,45 @@
+.veratag-error-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 75vh;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  text-align: center;
+
+  width: min(640px, 100%);
+  box-sizing: border-box;
+}
+
+.veratag-error-page h1 {
+  margin: 0;
+}
+
+.veratag-error-page__code {
+  font-size: var(--veratag-font-size-1100);
+  color: var(--veratag-color-text-heading);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1;
+}
+
+.veratag-error-page__heading {
+  font-size: var(--veratag-font-size-800);
+  font-weight: 600;
+  margin: 0.25rem 0 0;
+  color: var(--veratag-color-text-heading);
+}
+
+.veratag-error-page__message {
+  font-size: var(--veratag-font-size-500);
+  color: var(--veratag-color-text-secondary);
+  line-height: var(--veratag-line-height-200);
+  margin: 1rem 0 0;
+}
+
+.veratag-error-page__actions {
+  margin-top: 1.5rem;
+}

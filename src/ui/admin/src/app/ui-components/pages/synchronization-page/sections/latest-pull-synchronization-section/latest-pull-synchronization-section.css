@@ -1,0 +1,83 @@
+.veratag-latest-pull-synchronization-section__summary {
+  border: 1px solid var(--veratag-color-border);
+  border-radius: var(--veratag-panel-border-radius);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.veratag-latest-pull-synchronization-section__table {
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 760px;
+  table-layout: auto;
+  width: 100%;
+}
+
+.veratag-latest-pull-synchronization-section__table thead {
+  color: var(--veratag-color-text-heading);
+  font-size: var(--veratag-font-size-text-md);
+  line-height: var(--veratag-line-height-text-md);
+  font-weight: 600;
+}
+
+.veratag-latest-pull-synchronization-section__table th {
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.veratag-latest-pull-synchronization-section__table th:first-child,
+.veratag-latest-pull-synchronization-section__table td:first-child {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.veratag-latest-pull-synchronization-section__table th:nth-child(2),
+.veratag-latest-pull-synchronization-section__table td:nth-child(2) {
+  width: 98%;
+}
+
+.veratag-latest-pull-synchronization-section__table th:last-child,
+.veratag-latest-pull-synchronization-section__table td:last-child {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.veratag-latest-pull-synchronization-section__table th:last-child {
+  text-align: right;
+}
+
+.veratag-latest-pull-synchronization-section__table td:last-child {
+  text-align: left;
+  white-space: nowrap;
+}
+
+.veratag-latest-pull-synchronization-section__table tbody {
+  background: #ffffff;
+}
+
+.veratag-latest-pull-synchronization-section__table td {
+  border-top: 1px solid var(--veratag-color-border);
+  min-height: 64px;
+  padding: 14px;
+  vertical-align: top;
+}
+
+.veratag-latest-pull-synchronization-section__meta-value {
+  display: inline-flex;
+  overflow-wrap: anywhere;
+  color: var(--veratag-color-text-heading);
+  font-size: var(--veratag-font-size-text-sm);
+  line-height: var(--veratag-line-height-text-sm);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .veratag-latest-pull-synchronization-section__table {
+    min-width: 560px;
+  }
+
+  .veratag-latest-pull-synchronization-section__table td {
+    min-height: unset;
+  }
+}

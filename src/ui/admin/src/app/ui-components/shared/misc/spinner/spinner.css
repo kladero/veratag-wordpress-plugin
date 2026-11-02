@@ -1,0 +1,20 @@
+.veratag-spinner {
+  --veratag-spinner-size-rem: 1.5;
+  --veratag-spinner-stroke-rem: 0.2;
+  --veratag-spinner-speed: 700ms;
+
+  width: calc(var(--veratag-spinner-size-rem) * 1rem);
+  height: calc(var(--veratag-spinner-size-rem) * 1rem);
+  display: inline-block;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: calc(var(--veratag-spinner-stroke-rem) * 1rem) solid var(--veratag-color-primary);
+  border-right-color: transparent;
+  animation: veratag-spinner-rotate var(--veratag-spinner-speed) linear infinite;
+}
+
+@keyframes veratag-spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}

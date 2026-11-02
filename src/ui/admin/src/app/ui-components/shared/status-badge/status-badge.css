@@ -1,0 +1,26 @@
+.veratag-status-badge {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: var(--veratag-badge-sm-font-size);
+  font-weight: 600;
+  line-height: 1;
+  min-height: 18px;
+  padding: var(--veratag-badge-sm-padding);
+  white-space: nowrap;
+}
+
+.veratag-status-badge--success {
+  background-color: var(--veratag-color-surface-green-strong);
+  color: var(--veratag-color-text-inverted);
+}
+
+.veratag-status-badge--error {
+  background-color: var(--veratag-color-surface-red-strong);
+  color: var(--veratag-color-text-inverted);
+}
+
+.veratag-status-badge--warning {
+  background-color: var(--veratag-color-surface-orange-strong);
+  color: var(--veratag-color-text-inverted);
+}

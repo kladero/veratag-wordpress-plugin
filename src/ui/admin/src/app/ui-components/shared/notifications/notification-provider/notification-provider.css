@@ -1,0 +1,120 @@
+.veratag-notification-stack {
+  bottom: 24px;
+  display: grid;
+  gap: 8px;
+  position: fixed;
+  right: 24px;
+  width: min(360px, calc(100vw - 32px));
+  z-index: 1000;
+}
+
+.veratag-notification {
+  align-items: flex-start;
+  background: #ffffff;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  box-shadow: var(--veratag-shadow-md);
+  display: flex;
+  font-family: var(--veratag-font-family-base);
+  font-size: 14px;
+  gap: 12px;
+  padding: 12px 16px;
+}
+
+.veratag-notification--success {
+  background-color: var(--veratag-color-surface-green-light);
+  border-color: var(--veratag-color-border-green);
+  color: var(--veratag-color-text-green);
+}
+
+.veratag-notification--error {
+  background-color: var(--veratag-color-surface-red-light);
+  border-color: var(--veratag-color-border-red);
+  color: var(--veratag-color-text-red);
+}
+
+.veratag-notification__icon {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.veratag-notification__icon-image {
+  display: block;
+  height: 18px;
+  width: 18px;
+}
+
+.veratag-notification--success .veratag-notification__icon-image {
+  filter: brightness(0) saturate(100%) invert(43%) sepia(93%) saturate(1048%) hue-rotate(128deg)
+    brightness(88%) contrast(96%);
+}
+
+.veratag-notification--error .veratag-notification__icon-image {
+  filter: brightness(0) saturate(100%) invert(21%) sepia(91%) saturate(3217%) hue-rotate(351deg)
+    brightness(93%) contrast(84%);
+}
+
+.veratag-notification__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.veratag-notification__header {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.veratag-notification__title {
+  color: inherit;
+  flex: 1;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  margin: 0;
+  padding-right: 8px;
+  word-break: break-word;
+}
+
+.veratag-notification__message-wrapper {
+  overflow-y: auto;
+}
+
+.veratag-notification__message {
+  color: var(--veratag-color-text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.veratag-notification__dismiss {
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--veratag-color-icon-secondary);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.veratag-notification__dismiss:hover {
+  color: var(--veratag-color-icon-secondary-hover);
+}
+
+.veratag-notification__dismiss-glyph {
+  display: block;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.veratag-notification__dismiss:focus-visible {
+  outline: 2px solid var(--veratag-color-border-brand);
+  outline-offset: 3px;
+  border-radius: 3px;
+}

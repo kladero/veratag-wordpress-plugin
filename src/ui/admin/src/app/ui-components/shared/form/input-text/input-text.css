@@ -1,0 +1,183 @@
+.veratag-input-text {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+}
+
+.veratag-input-text__label {
+  margin: 0;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+
+  font-size: var(--veratag-font-size-form-label-text);
+  line-height: var(--veratag-line-height-form-label-text);
+  font-weight: 500;
+  color: var(--veratag-color-text-heading);
+
+  transition: color 120ms ease;
+}
+
+.veratag-input-text__wrapper {
+  align-items: center;
+  background-color: var(--veratag-color-surface-input);
+  border: 1px solid var(--veratag-color-border-strong);
+  border-radius: 4px;
+  padding: 0.5rem;
+  box-shadow: var(--veratag-shadow-sm);
+  display: flex;
+
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.veratag-input-text__wrapper:hover {
+  border-color: var(--veratag-color-border-brand);
+}
+
+.veratag-input-text__wrapper:focus-within {
+  border-color: var(--veratag-color-border-brand);
+  box-shadow: var(--veratag-shadow-brand);
+}
+
+/*
+ * Only the wrapper draws the focus ring (via :focus-within). The inner input
+ * must stay visually inert, otherwise host-page styles (e.g. wp-admin's
+ * `input[type='text']:focus`) add a second border/shadow. The doubled class
+ * selectors outrank those rules.
+ */
+.veratag-input-text .veratag-input-text__field,
+.veratag-input-text .veratag-input-text__field:hover,
+.veratag-input-text .veratag-input-text__field:focus,
+.veratag-input-text .veratag-input-text__field:focus-visible {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+}
+
+.veratag-input-text__field {
+  font-size: var(--veratag-font-size-form-field-input);
+  min-width: 0;
+  background: transparent;
+  padding: 0;
+  height: auto;
+  min-height: 0;
+  line-height: var(--veratag-line-height-form-field-input);
+  flex: 1;
+  font-family: var(--veratag-font-family-base);
+  color: var(--veratag-color-text-primary);
+}
+
+.veratag-input-text__field::placeholder {
+  color: var(--veratag-color-text-secondary);
+}
+
+/* ============================================================
+ * READ ONLY
+ * ============================================================ */
+
+.veratag-input-text--readonly .veratag-input-text__wrapper {
+  background-color: var(--veratag-color-disabled-background);
+  border-color: var(--veratag-color-disabled-border);
+  box-shadow: none;
+}
+
+.veratag-input-text--readonly .veratag-input-text__wrapper:hover {
+  border-color: var(--veratag-color-disabled-border);
+}
+
+.veratag-input-text--readonly .veratag-input-text__wrapper:focus-within {
+  border-color: var(--veratag-color-disabled-border);
+  box-shadow: none;
+}
+
+/* Read-only values stay selectable/copyable, but never look focused. */
+.veratag-input-text--readonly .veratag-input-text__field {
+  caret-color: transparent;
+  color: var(--veratag-color-text-secondary);
+  cursor: default;
+}
+
+/* ============================================================
+ * DISABLED
+ * ============================================================ */
+
+.veratag-input-text--disabled .veratag-input-text__label {
+  color: var(--veratag-color-disabled-text);
+}
+
+.veratag-input-text--disabled .veratag-input-text__wrapper {
+  background-color: var(--veratag-color-disabled-background);
+  border-color: var(--veratag-color-disabled-border);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.veratag-input-text--disabled .veratag-input-text__wrapper:hover {
+  border-color: var(--veratag-color-disabled-border);
+}
+
+.veratag-input-text--disabled .veratag-input-text__wrapper:focus-within {
+  border-color: var(--veratag-color-disabled-border);
+  box-shadow: none;
+}
+
+.veratag-input-text--disabled .veratag-input-text__field {
+  pointer-events: none;
+}
+
+.veratag-input-text__field:disabled {
+  color: var(--veratag-color-disabled-text);
+  cursor: not-allowed;
+  opacity: 1;
+  -webkit-text-fill-color: var(--veratag-color-disabled-text);
+}
+
+.veratag-input-text__field:disabled::placeholder {
+  color: var(--veratag-color-disabled-text);
+  opacity: 0.7;
+}
+
+/* ============================================================
+ * ERROR
+ * ============================================================ */
+
+.veratag-input-text--error:not(.veratag-input-text--disabled) .veratag-input-text__wrapper {
+  border-color: var(--veratag-color-border-red);
+}
+
+.veratag-input-text--error:not(.veratag-input-text--disabled)
+  .veratag-input-text__wrapper:focus-within {
+  border-color: var(--veratag-color-border-red);
+  box-shadow: var(--veratag-shadow-red);
+}
+
+/* ============================================================
+ * HINT / ERROR
+ * ============================================================ */
+
+.veratag-input-text__hint,
+.veratag-input-text__error {
+  display: block;
+  margin: 0.25rem 0 0 0;
+
+  font-size: var(--veratag-font-size-form-hint);
+  line-height: var(--veratag-line-height-form-hint);
+  font-family: var(--veratag-font-family-base);
+}
+
+.veratag-input-text__hint {
+  color: var(--veratag-color-text-secondary);
+}
+
+.veratag-input-text__error {
+  color: var(--veratag-color-text-red);
+}
+
+.veratag-input-text--disabled .veratag-input-text__hint {
+  color: var(--veratag-color-disabled-text);
+}

@@ -1,0 +1,237 @@
+.veratag-toggle-switch {
+  cursor: pointer;
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 26px;
+  position: relative;
+  transition: opacity 0.2s;
+  user-select: none;
+  width: 44px;
+}
+
+/*
+ * Native checkbox reset
+ *
+ * WordPress admin styles input[type="checkbox"] and may render a
+ * ::before checkmark when checked. Completely hide/reset the native
+ * checkbox while keeping it as the interactive form control.
+ */
+.veratag-toggle-switch > .veratag-toggle-switch__input {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  cursor: pointer;
+
+  display: block;
+
+  height: 100% !important;
+  width: 100% !important;
+
+  inset: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  opacity: 0 !important;
+  outline: 0 !important;
+
+  position: absolute;
+
+  min-height: 0 !important;
+  min-width: 0 !important;
+  max-height: none !important;
+  max-width: none !important;
+
+  z-index: 2;
+
+  /*
+   * Prevent browser/WordPress-specific checkbox coloring.
+   */
+  accent-color: transparent;
+}
+
+/*
+ * WordPress renders the checkbox tick using pseudo-elements.
+ * Explicitly remove them.
+ */
+.veratag-toggle-switch > .veratag-toggle-switch__input::before,
+.veratag-toggle-switch > .veratag-toggle-switch__input::after,
+.veratag-toggle-switch > .veratag-toggle-switch__input:checked::before,
+.veratag-toggle-switch > .veratag-toggle-switch__input:checked::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/*
+ * Slider
+ */
+
+.veratag-toggle-switch__slider {
+  background-color: var(--veratag-color-surface);
+  border-radius: 26px;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  transition:
+    background-color var(--veratag-transition-duration-fast),
+    box-shadow var(--veratag-transition-duration-fast);
+}
+
+.veratag-toggle-switch__slider::before {
+  background-color: var(--veratag-color-background);
+  border-radius: 50%;
+  bottom: 4px;
+  content: '';
+  height: 18px;
+  left: 4px;
+  position: absolute;
+
+  transition: transform 0.2s;
+
+  width: 18px;
+}
+
+/*
+ * Checked
+ */
+
+.veratag-toggle-switch--checked .veratag-toggle-switch__slider {
+  background-color: var(--veratag-color-primary);
+}
+
+.veratag-toggle-switch--checked .veratag-toggle-switch__slider::before {
+  transform: translateX(18px);
+}
+
+/*
+ * Hover
+ */
+
+.veratag-toggle-switch:hover:not(.veratag-toggle-switch--disabled) .veratag-toggle-switch__slider {
+  background-color: var(--veratag-color-surface-hover);
+}
+
+.veratag-toggle-switch--checked:hover:not(.veratag-toggle-switch--disabled)
+  .veratag-toggle-switch__slider {
+  background-color: var(--veratag-color-primary-hover);
+}
+
+/*
+ * Focus
+ */
+
+.veratag-toggle-switch--focus .veratag-toggle-switch__slider {
+  box-shadow: var(--veratag-shadow-brand);
+}
+
+/*
+ * Disabled
+ */
+
+.veratag-toggle-switch--disabled {
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+}
+
+.veratag-toggle-switch--disabled .veratag-toggle-switch__input {
+  cursor: default;
+}
+
+.veratag-toggle-switch--disabled .veratag-toggle-switch__slider {
+  background-color: var(--veratag-color-disabled-background);
+  opacity: 1;
+}
+
+.veratag-toggle-switch--checked.veratag-toggle-switch--disabled .veratag-toggle-switch__slider {
+  background-color: var(--veratag-color-disabled-primary-background);
+  border-color: var(--veratag-color-disabled-primary-border);
+  color: var(--veratag-color-text-inverted);
+  opacity: 0.6;
+}
+
+/*
+ * Small
+ */
+
+.veratag-toggle-switch--sm {
+  height: 20px;
+  width: 34px;
+}
+
+.veratag-toggle-switch--sm .veratag-toggle-switch__slider {
+  border-radius: 20px;
+}
+
+.veratag-toggle-switch--sm .veratag-toggle-switch__slider::before {
+  bottom: 3px;
+  height: 14px;
+  left: 3px;
+  width: 14px;
+}
+
+.veratag-toggle-switch--sm.veratag-toggle-switch--checked .veratag-toggle-switch__slider::before {
+  transform: translateX(14px);
+}
+
+/*
+ * Medium
+ */
+
+.veratag-toggle-switch--md {
+  height: 26px;
+  width: 44px;
+}
+
+.veratag-toggle-switch--md .veratag-toggle-switch__slider {
+  border-radius: 26px;
+}
+
+.veratag-toggle-switch--md .veratag-toggle-switch__slider::before {
+  bottom: 4px;
+  height: 18px;
+  left: 4px;
+  width: 18px;
+}
+
+.veratag-toggle-switch--md.veratag-toggle-switch--checked .veratag-toggle-switch__slider::before {
+  transform: translateX(18px);
+}
+
+/*
+ * Large
+ */
+
+.veratag-toggle-switch--lg {
+  height: 32px;
+  width: 54px;
+}
+
+.veratag-toggle-switch--lg .veratag-toggle-switch__slider {
+  border-radius: 32px;
+}
+
+.veratag-toggle-switch--lg .veratag-toggle-switch__slider::before {
+  bottom: 4px;
+  height: 24px;
+  left: 4px;
+  width: 24px;
+}
+
+.veratag-toggle-switch--lg.veratag-toggle-switch--checked .veratag-toggle-switch__slider::before {
+  transform: translateX(22px);
+}

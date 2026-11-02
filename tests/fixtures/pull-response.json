@@ -1,0 +1,146 @@
+{
+  "channelDetails": {
+    "displayName": "Example Test Channel",
+    "paths": {
+      "channelDashboardPath": "/channels/example",
+      "channelDisclosureConfigurationsPath": "/channels/example/configurations",
+      "channelDisclosureTextTemplatesPath": "/channels/example/text-templates",
+      "channelDisclosurePlacementsPath": "/channels/example/placements",
+      "channelContentManagementPath": "/channels/example/content",
+      "channelSettingsPath": "/channels/example/settings"
+    },
+    "pushApiStatus": {
+      "configured": false,
+      "enabled": false,
+      "hasSecret": false,
+      "secretStub": null,
+      "lastPushAttemptAt": null,
+      "lastPushAttemptStatusMessage": null,
+      "lastSuccessfulPushAt": null,
+      "lastSuccessfulPushMessage": null
+    },
+    "visitorPreferredDisclosureLanguageMode": "visitor_preferred",
+    "visitorFallbackDisclosureLanguageBcp47": "en"
+  },
+  "configurations": {
+    "system:10": {
+      "name": "Default synthetic configuration",
+      "issues": [],
+      "placementRefs": [
+        "system:6"
+      ],
+      "slots": {
+        "disclosure_acronym": {
+          "en": {
+            "custom": "AI"
+          },
+          "de": {
+            "custom": "KI"
+          }
+        },
+        "disclosure_label": {
+          "en": {
+            "custom": "AI content"
+          },
+          "de": {
+            "templateRef": "system:42"
+          }
+        },
+        "disclosure_message": {
+          "en": {
+            "custom": "This content was generated using AI."
+          },
+          "de": {
+            "custom": "Dieser Inhalt wurde mit KI erstellt."
+          }
+        }
+      }
+    }
+  },
+  "placements": {
+    "system:6": {
+      "name": "Pill synthetic",
+      "issues": [],
+      "schema": {
+        "schemaName": "disclosure-pill-heading",
+        "schemaVersion": "1.0.4"
+      },
+      "renderScript": {
+        "fileName": "renderer-test.js",
+        "scriptReleaseVersion": "1.0.0"
+      },
+      "rawParams": {
+        "composition": {
+          "box": {
+            "label": null
+          },
+          "behaviour": {}
+        }
+      },
+      "slotBindings": {
+        "composition.box.label": "disclosure_label"
+      }
+    }
+  },
+  "textTemplates": {
+    "system:42": {
+      "name": "Synthetic label",
+      "issues": [],
+      "texts": {
+        "en": "AI content",
+        "de": "KI-Inhalt"
+      }
+    }
+  },
+  "pages": [
+    {
+      "pageUrl": "https://example.test/news/ai/",
+      "content": [
+        {
+          "contentId": "ai-01",
+          "contentType": "paragraph",
+          "contentHtmlTag": "p",
+          "contentDisplay": {
+            "type": "text",
+            "text": "Synthetic test article"
+          },
+          "disclosureType": "disclosure:type:ai_assisted_fact_checked",
+          "configurationRef": "system:10",
+          "shouldBeDisclosed": true,
+          "issues": []
+        },
+        {
+          "contentId": "img-02",
+          "contentType": "image",
+          "contentHtmlTag": "img",
+          "contentDisplay": {
+            "type": "image",
+            "src": "https://example.test/test.png"
+          },
+          "disclosureType": "disclosure:type:ai_assisted_fact_checked",
+          "configurationRef": "system:10",
+          "shouldBeDisclosed": true,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "pageUrl": "https://example.test/pricing/",
+      "content": [
+        {
+          "contentId": "price-01",
+          "contentType": "paragraph",
+          "contentHtmlTag": "p",
+          "contentDisplay": {
+            "type": "text",
+            "text": "Pricing"
+          },
+          "disclosureType": null,
+          "configurationRef": null,
+          "shouldBeDisclosed": null,
+          "issues": []
+        }
+      ]
+    }
+  ]
+}

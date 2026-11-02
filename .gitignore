@@ -1,0 +1,17 @@
+/node_modules/
+/dist/
+/.build/
+/.cache/
+/coverage/
+/src/ui/admin/node_modules/
+/src/ui/admin/dist/
+*.tsbuildinfo
+.eslintcache
+*.log
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

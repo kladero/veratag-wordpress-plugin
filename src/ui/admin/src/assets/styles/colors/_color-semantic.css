@@ -1,0 +1,158 @@
+/* #region White mode */
+#veratag-admin-root,
+.veratag-popover__anim,
+.veratag-dialog-portal {
+  /* === Brand / Primary === */
+  --veratag-color-primary: var(--veratag-blue-500);
+
+  /* #region Backgrounds & Surfaces Colors */
+
+  /* === Backgrounds & Surfaces === */
+
+  /* App / Page background */
+  --veratag-color-background: var(--veratag-white);
+
+  /* Default surface (cards, panels, inputs) */
+  --veratag-color-surface: var(--veratag-gray-200);
+
+  /* Color surfaces  */
+  --veratag-color-surface-brand-light-extreme: var(--veratag-blue-25);
+  --veratag-color-surface-brand-light: var(--veratag-blue-50);
+  --veratag-color-surface-brand-strong: var(--veratag-blue-500);
+
+  --veratag-color-surface-gray-light: var(--veratag-gray-100);
+  --veratag-color-surface-gray-strong: var(--veratag-gray-300);
+
+  --veratag-color-surface-green-light: var(--veratag-green-50);
+  --veratag-color-surface-green-strong: var(--veratag-green-500);
+
+  --veratag-color-surface-blue-light: var(--veratag-blue-50);
+  --veratag-color-surface-blue-strong: var(--veratag-blue-500);
+
+  --veratag-color-surface-orange-light: var(--veratag-orange-50);
+  --veratag-color-surface-orange-strong: var(--veratag-orange-500);
+
+  --veratag-color-surface-red-light: var(--veratag-red-100);
+  --veratag-color-surface-red-strong: var(--veratag-red-500);
+
+  --veratag-color-surface-yellow-strong: var(--veratag-yellow-500);
+
+  --veratag-color-surface-violet-strong: var(--veratag-violet-500);
+
+  /* Input backgrounds */
+  --veratag-color-surface-input: var(--veratag-white);
+  /* #endregion */
+
+  /* #region Borders & Dividers Colors */
+
+  /* Generic borders */
+  --veratag-color-border: var(--veratag-gray-200);
+  --veratag-color-border-strong: var(--veratag-gray-300);
+
+  /* Brand border (focus/highlighted states) */
+  --veratag-color-border-brand: var(--veratag-blue-500);
+
+  /* Status-specific borders */
+  --veratag-color-border-green: var(--veratag-green-600);
+  --veratag-color-border-blue: var(--veratag-blue-600);
+  --veratag-color-border-orange: var(--veratag-orange-600);
+  --veratag-color-border-red: var(--veratag-red-600);
+
+  /* #endregion */
+
+  /* #region Typography Colors */
+
+  /* Primary text */
+  --veratag-color-text-primary: var(--veratag-gray-900);
+
+  /* Secondary text (less emphasis, form labels, captions) */
+  --veratag-color-text-secondary: var(--veratag-gray-600);
+
+  --veratag-color-text-brand: var(--veratag-blue-500);
+
+  --veratag-color-text-green: var(--veratag-green-700);
+  --veratag-color-text-red: var(--veratag-red-700);
+
+  /* Inverted text (on dark backgrounds, e.g., buttons, toasts) */
+  --veratag-color-text-inverted: var(--veratag-white);
+
+  /* Headings / Titles (high emphasis, strong contrast) */
+  --veratag-color-text-heading: var(--veratag-blue-850);
+  /* #endregion */
+
+  /* #region Icon Colors */
+
+  /* Neutral icons */
+  --veratag-color-icon-secondary: var(--veratag-gray-600);
+
+  /* Status icons */
+  --veratag-color-icon-orange: var(--veratag-orange-600);
+
+  /* #endregion */
+
+  /* #region Scrollbar Thumb Colors*/
+  --veratag-color-scrollbar-thumb-gray: rgba(var(--veratag-gray-700-rgb), 0.4);
+
+  --veratag-color-scrollbar-thumb-hover-gray: var(--veratag-gray-700-rgb);
+
+  /* #endregion */
+
+  /* #region Interactive States Colors */
+
+  /* Primary Actions (e.g., Primary Button) */
+  --veratag-color-primary-hover: var(--veratag-blue-600);
+
+  --veratag-color-list-item-active-background: var(--veratag-blue-50);
+  --veratag-color-list-item-active-background-hover: var(--veratag-blue-100);
+  --veratag-color-list-item-hover: var(--veratag-gray-200);
+
+  --veratag-color-icon-secondary-hover: var(--veratag-gray-700);
+
+  /* Generic Disabled (backgrounds, inputs, icons) */
+  --veratag-color-disabled-background: var(--veratag-gray-100);
+  --veratag-color-disabled-text: var(--veratag-gray-400);
+  --veratag-color-disabled-border: var(--veratag-gray-200);
+
+  --veratag-color-disabled-primary-background: var(--veratag-blue-200);
+  --veratag-color-disabled-primary-border: var(--veratag-blue-200);
+
+  /* Hover / Active States for Neutral Surfaces */
+
+  --veratag-color-surface-brand-hover-strong: var(--veratag-blue-600);
+
+  --veratag-color-surface-hover: var(--veratag-gray-300);
+
+  /* #endregion */
+
+  /* #region Filters */
+  --veratag-color-filter-text-heading: brightness(0) saturate(100%) invert(10%) sepia(89%)
+    saturate(2226%) hue-rotate(204deg) brightness(91%) contrast(104%);
+  /* #endregion */
+
+  /* #region Shadows / Elevation Colors */
+
+  --veratag-shadow-base-color: var(--veratag-black-rgb);
+
+  /* Subtle shadow (buttons, inputs on hover) */
+  --veratag-shadow-sm: 0 1px 2px rgba(var(--veratag-black-rgb), 0.05);
+
+  /* Medium shadow (cards, dropdowns) */
+  --veratag-shadow-md: 0 4px 6px rgba(var(--veratag-black-rgb), 0.1);
+
+  /* Strong shadow (modals, popovers) */
+  --veratag-shadow-lg: 0 10px 15px rgba(var(--veratag-black-rgb), 0.15);
+
+  /* Colors */
+  --veratag-shadow-blue: 0 0 0 0.2rem rgba(var(--veratag-blue-600-rgb), 0.4);
+  --veratag-shadow-red: 0 0 0 0.2rem rgba(var(--veratag-red-600-rgb), 0.4);
+
+  /* Brand / Primary */
+  --veratag-shadow-brand: 0 0 0 0.2rem rgba(var(--veratag-blue-500-rgb), 0.4);
+
+  /* #endregion */
+
+  /* #region Charts Colors */
+
+  /* #endregion */
+}
+/* #endregion */

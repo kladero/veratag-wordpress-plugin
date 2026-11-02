@@ -1,0 +1,16 @@
+.veratag-admin-page-layout {
+  background: #ffffff;
+  min-height: 100vh;
+  padding-top: 16px;
+}
+
+.veratag-admin-page-layout__main {
+  background: #ffffff;
+  padding: 0px 0 40px;
+}
+
+@media (max-width: 640px) {
+  .veratag-admin-page-layout {
+    padding-top: 12px;
+  }
+}

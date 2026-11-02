@@ -1,0 +1,7 @@
+.veratag-admin-app a {
+  text-decoration: none;
+  color: var(--veratag-color-text-brand);
+}
+:where(#veratag-admin-root, .veratag-popover__anim, .veratag-dialog-portal) strong {
+  color: var(--veratag-color-text-heading);
+}

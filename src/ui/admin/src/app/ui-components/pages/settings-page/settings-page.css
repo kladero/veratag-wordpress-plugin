@@ -1,0 +1,17 @@
+.veratag-settings-page {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+
+.veratag-settings-page__sections {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.veratag-settings-page__loading {
+  display: flex;
+  justify-content: center;
+  padding: 48px 0;
+}

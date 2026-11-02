@@ -1,0 +1,70 @@
+@import './assets/styles/colors/_color-theme.css';
+@import './assets/styles/colors/_color-semantic.css';
+@import './assets/styles/constants/layout.css';
+@import './assets/styles/fonts/fonts.css';
+@import './assets/styles/typography/_typography.css';
+@import './assets/styles/typography/_typography-primitives.css';
+@import './assets/styles/typography/_typography-semantic.css';
+
+#veratag-admin-root {
+  margin: 0;
+}
+
+.veratag-admin-app {
+  color: var(--veratag-color-text-primary);
+  background: var(--veratag-color-background);
+  font-family: var(--veratag-font-family-base);
+}
+
+#veratag-admin-root,
+.veratag-admin-app {
+  min-height: 100vh;
+}
+
+#veratag-admin-root {
+  background: #ffffff;
+}
+
+.veratag-admin-app__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 75vh;
+}
+
+.veratag-admin-app p {
+  margin: 0;
+}
+
+/* Fallback focus outline without changing the normal pointer/mouse appearance.
+   Wrapped in :where() so it has zero specificity: any component that draws its
+   own focus ring (e.g. InputText's wrapper, dropdown triggers) overrides it
+   instead of ending up with two rings. */
+:where(
+  #veratag-admin-root :is(button, a[href], input, select, textarea, [role='option'])
+):focus-visible,
+:where(.veratag-popover__anim :is(button, a[href], input, [tabindex])):focus-visible {
+  outline: 2px solid var(--veratag-color-border-brand);
+  outline-offset: 2px;
+}
+
+/* Honor the user's OS motion preference. This is intentionally scoped to
+   VeraTag, not WordPress or any other plugin. Static loading indicators remain. */
+@media (prefers-reduced-motion: reduce) {
+  #veratag-admin-root *,
+  #veratag-admin-root *::before,
+  #veratag-admin-root *::after,
+  .veratag-popover__anim,
+  .veratag-popover__anim *,
+  .veratag-popover__anim *::before,
+  .veratag-popover__anim *::after,
+  .veratag-dialog-portal *,
+  .veratag-dialog-portal *::before,
+  .veratag-dialog-portal *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
