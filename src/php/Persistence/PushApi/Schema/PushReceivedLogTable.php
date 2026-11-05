@@ -41,6 +41,4 @@ final class PushReceivedLogTable
         $name = $this->getTableName();
         $wpdb->query($wpdb->prepare('DROP TABLE IF EXISTS %i', $name));
     }
-
-    // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 }

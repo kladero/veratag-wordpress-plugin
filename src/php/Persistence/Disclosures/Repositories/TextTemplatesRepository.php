@@ -39,7 +39,10 @@ final class TextTemplatesRepository
     public function findByRef(string $ref): ?array
     {
         global $wpdb;
-        $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $this->text_templates_table->getTableName() . ' WHERE ref = %s', $ref), ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $row = $wpdb->get_row(
+            $wpdb->prepare('SELECT * FROM %i WHERE ref = %s', $this->text_templates_table->getTableName(), $ref),
+            ARRAY_A
+        );
         return is_array($row) ? $row : null;
     }
     /** @param string[] $refs */
@@ -52,7 +55,8 @@ final class TextTemplatesRepository
         }
         $placeholders = implode(', ', array_fill(0, count($refs), '%s'));
         $rows         = $wpdb->get_results(
-            $wpdb->prepare('SELECT * FROM ' . $this->text_templates_table->getTableName() . " WHERE ref IN ({$placeholders}) ORDER BY ref ASC", $refs), // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- The generated placeholder list and values are both controlled here.
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- The generated list contains fixed %s tokens; every identifier and value is passed to prepare().
+            $wpdb->prepare('SELECT * FROM %i WHERE ref IN (' . $placeholders . ') ORDER BY ref ASC', array_merge(array( $this->text_templates_table->getTableName() ), $refs)),
             ARRAY_A
         );
         return is_array($rows) ? $rows : array();
@@ -60,7 +64,10 @@ final class TextTemplatesRepository
     public function findAll(): array
     {
         global $wpdb;
-        $rows = $wpdb->get_results('SELECT * FROM ' . $this->text_templates_table->getTableName() . ' ORDER BY ref ASC', ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $rows = $wpdb->get_results(
+            $wpdb->prepare('SELECT * FROM %i ORDER BY ref ASC', $this->text_templates_table->getTableName()),
+            ARRAY_A
+        );
         return is_array($rows) ? $rows : array();
     }
     public function deleteByRef(string $ref): void

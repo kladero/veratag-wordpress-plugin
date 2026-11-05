@@ -11,4 +11,5 @@ final class GeneratedBuildConfig {
 	public const DASHBOARD_BASE_URL = 'https://vera-tag.kladero.com/app/';
 	public const ALLOWED_BACKEND_BASE_URLS = array( 'https://vera-tag.kladero.com/api' );
 	public const ALLOWED_DASHBOARD_BASE_URLS = array( 'https://vera-tag.kladero.com/app/' );
+	public const ERROR_LOGGING_ENABLED = false;
 }

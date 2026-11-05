@@ -38,13 +38,19 @@ final class RenderScriptsRepository
     public function findByFileName(string $file_name): ?array
     {
         global $wpdb;
-        $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $this->render_scripts_table->getTableName() . ' WHERE file_name = %s', $file_name), ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $row = $wpdb->get_row(
+            $wpdb->prepare('SELECT * FROM %i WHERE file_name = %s', $this->render_scripts_table->getTableName(), $file_name),
+            ARRAY_A
+        );
         return is_array($row) ? $row : null;
     }
     public function findAll(): array
     {
         global $wpdb;
-        $rows = $wpdb->get_results('SELECT * FROM ' . $this->render_scripts_table->getTableName() . ' ORDER BY file_name ASC', ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $rows = $wpdb->get_results(
+            $wpdb->prepare('SELECT * FROM %i ORDER BY file_name ASC', $this->render_scripts_table->getTableName()),
+            ARRAY_A
+        );
         return is_array($rows) ? $rows : array();
     }
     public function findAllFileNames(): array

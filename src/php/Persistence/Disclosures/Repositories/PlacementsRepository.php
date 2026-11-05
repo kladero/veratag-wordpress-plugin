@@ -48,7 +48,10 @@ final class PlacementsRepository
     public function findByRef(string $ref): ?array
     {
         global $wpdb;
-        $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $this->placements_table->getTableName() . ' WHERE ref = %s', $ref), ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $row = $wpdb->get_row(
+            $wpdb->prepare('SELECT * FROM %i WHERE ref = %s', $this->placements_table->getTableName(), $ref),
+            ARRAY_A
+        );
         return is_array($row) ? $row : null;
     }
     /** @param string[] $refs */
@@ -61,7 +64,8 @@ final class PlacementsRepository
         }
         $placeholders = implode(', ', array_fill(0, count($refs), '%s'));
         $rows         = $wpdb->get_results(
-            $wpdb->prepare('SELECT * FROM ' . $this->placements_table->getTableName() . " WHERE ref IN ({$placeholders}) ORDER BY ref ASC", $refs), // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- The generated placeholder list and values are both controlled here.
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- The generated list contains fixed %s tokens; every identifier and value is passed to prepare().
+            $wpdb->prepare('SELECT * FROM %i WHERE ref IN (' . $placeholders . ') ORDER BY ref ASC', array_merge(array( $this->placements_table->getTableName() ), $refs)),
             ARRAY_A
         );
         return is_array($rows) ? $rows : array();
@@ -69,7 +73,10 @@ final class PlacementsRepository
     public function findAll(): array
     {
         global $wpdb;
-        $rows = $wpdb->get_results('SELECT * FROM ' . $this->placements_table->getTableName() . ' ORDER BY ref ASC', ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $rows = $wpdb->get_results(
+            $wpdb->prepare('SELECT * FROM %i ORDER BY ref ASC', $this->placements_table->getTableName()),
+            ARRAY_A
+        );
         return is_array($rows) ? $rows : array();
     }
     public function findDistinctRequiredScripts(): array
@@ -84,7 +91,9 @@ final class PlacementsRepository
     public function countByRenderScriptFileName(string $file_name): int
     {
         global $wpdb;
-        $count = $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM ' . $this->placements_table->getTableName() . ' WHERE render_script_file_name = %s', $file_name)); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $count = $wpdb->get_var(
+            $wpdb->prepare('SELECT COUNT(*) FROM %i WHERE render_script_file_name = %s', $this->placements_table->getTableName(), $file_name)
+        );
         return null === $count ? 0 : (int) $count;
     }
     public function deleteByRef(string $ref): void

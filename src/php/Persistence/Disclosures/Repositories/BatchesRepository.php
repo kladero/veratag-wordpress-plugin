@@ -70,7 +70,7 @@ final class BatchesRepository
     public function deleteAll(): bool|WP_Error
     {
         global $wpdb;
-        $deleted = $wpdb->query('DELETE FROM ' . $this->batches_table->getTableName()); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $deleted = $wpdb->query($wpdb->prepare('DELETE FROM %i', $this->batches_table->getTableName()));
         if (false === $deleted) {
             return new WP_Error(
                 'veratag_disclosure_persistence_db_error',

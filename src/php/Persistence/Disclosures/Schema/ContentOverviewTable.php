@@ -53,6 +53,6 @@ final class ContentOverviewTable
 
         $table_name = $this->getTableName();
 
-        $wpdb->query("DROP TABLE IF EXISTS {$table_name}"); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $wpdb->query($wpdb->prepare('DROP TABLE IF EXISTS %i', $table_name));
     }
 }

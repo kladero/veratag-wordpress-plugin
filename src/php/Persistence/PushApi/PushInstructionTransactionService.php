@@ -3,11 +3,16 @@
 namespace VeraTag\Persistence\PushApi;
 
 use Throwable;
+use VeraTag\Logging\Logger;
 use WP_Error;
 
 /** Serializes and atomically applies one incremental push instruction. */
 final class PushInstructionTransactionService
 {
+    public function __construct(private Logger $logger)
+    {
+    }
+
     /** @param callable(): bool|WP_Error $apply_instruction */
     public function execute(callable $apply_instruction): bool|WP_Error
     {
@@ -46,7 +51,7 @@ final class PushInstructionTransactionService
                 $wpdb->query('ROLLBACK');
             }
             if (1 !== (int) $wpdb->get_var($wpdb->prepare('SELECT RELEASE_LOCK(%s)', $lock_name))) {
-                error_log('vera[tag] failed to release the incremental push lock.');
+                $this->logger->error('vera[tag] failed to release the incremental push lock.');
             }
         }
     }

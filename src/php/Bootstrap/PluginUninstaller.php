@@ -4,17 +4,20 @@ namespace VeraTag\Bootstrap;
 
 use Throwable;
 use VeraTag\Features\PluginReset\PluginResetService;
+use VeraTag\Logging\Logger;
 
 final class PluginUninstaller
 {
     public function __construct(
-        private readonly ServiceFactory $service_factory = new ServiceFactory()
+        private readonly ServiceFactory $service_factory,
+        private readonly Logger $logger
     ) {
     }
 
     public static function run(): void
     {
-        $plugin_uninstaller = new self();
+        $service_factory = new ServiceFactory();
+        $plugin_uninstaller = new self($service_factory, $service_factory->createLogger());
         $plugin_uninstaller->uninstall();
     }
 
@@ -54,7 +57,7 @@ final class PluginUninstaller
         try {
             $cleanup();
         } catch (Throwable $throwable) {
-            error_log(sprintf('vera[tag] uninstall cleanup failed for %s: %s', $phase_name, $throwable->getMessage()));
+            $this->logger->error(sprintf('vera[tag] uninstall cleanup failed for %s: %s', $phase_name, $throwable->getMessage()));
         }
     }
 

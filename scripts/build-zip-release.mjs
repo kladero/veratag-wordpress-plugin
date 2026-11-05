@@ -12,7 +12,8 @@ import { spawnSync } from "node:child_process";
 import { deflateRawSync } from "node:zlib";
 import { fileURLToPath } from "node:url";
 
-const PLUGIN_SLUG = "veratag-wordpress-plugin";
+const PLUGIN_SLUG = "veratag";
+const PLUGIN_ENTRY_FILE = "veratag-wordpress-plugin.php";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const TEXT_EXT = new Set([
   ".php",
@@ -190,7 +191,7 @@ function buildRelease() {
   const phpRoot = path.join(root, "src/php");
   const prefix = `${PLUGIN_SLUG}/`;
   const phpEntrypoint = readFileSync(
-    path.join(root, `${PLUGIN_SLUG}.php`),
+    path.join(root, PLUGIN_ENTRY_FILE),
     "utf8",
   );
   const php = readTree(phpRoot, `${PLUGIN_SLUG}/src/php`).filter(
@@ -223,7 +224,7 @@ function buildRelease() {
   }
   const docs = [
     textEntry(
-      `${prefix}${PLUGIN_SLUG}.php`,
+      `${prefix}${PLUGIN_ENTRY_FILE}`,
       stampPluginVersion(phpEntrypoint, version),
     ),
     ...["LICENSE", "TRADEMARKS.md", "THIRD_PARTY_NOTICES.txt"].map((filename) =>

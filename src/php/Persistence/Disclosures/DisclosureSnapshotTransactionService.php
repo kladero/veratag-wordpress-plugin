@@ -3,11 +3,16 @@
 namespace VeraTag\Persistence\Disclosures;
 
 use Throwable;
+use VeraTag\Logging\Logger;
 use WP_Error;
 
 /** Serializes and atomically publishes one full pull-synchronization snapshot. */
 final class DisclosureSnapshotTransactionService
 {
+    public function __construct(private Logger $logger)
+    {
+    }
+
     /** @param callable(): int|WP_Error $write_snapshot */
     public function execute(callable $write_snapshot): int|WP_Error
     {
@@ -40,7 +45,7 @@ final class DisclosureSnapshotTransactionService
                 $wpdb->query('ROLLBACK');
             }
             if (1 !== (int) $wpdb->get_var($wpdb->prepare('SELECT RELEASE_LOCK(%s)', $lock_name))) {
-                error_log('vera[tag] failed to release the pull snapshot lock.');
+                $this->logger->error('vera[tag] failed to release the pull snapshot lock.');
             }
         }
     }

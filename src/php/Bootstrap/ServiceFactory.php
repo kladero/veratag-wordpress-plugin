@@ -39,6 +39,10 @@ use VeraTag\Features\RenderScriptSync\RenderScriptReconciliationService;
 use VeraTag\Features\RenderScriptSync\RenderScriptSyncApiService;
 use VeraTag\Features\RenderScriptSync\RenderScriptSyncScheduler;
 use VeraTag\Features\VerificationFileConfiguration\VerificationFileConfigurationService;
+use VeraTag\Filesystem\FileOperations;
+use VeraTag\Filesystem\WordPressFileOperations;
+use VeraTag\Logging\Logger;
+use VeraTag\Logging\WordPressLogger;
 use VeraTag\Persistence\Disclosures\ContentItemIssueAggregationService;
 use VeraTag\Persistence\Disclosures\DisclosureSnapshotTransactionService;
 use VeraTag\Persistence\Disclosures\DictionaryGarbageCollector;
@@ -74,6 +78,11 @@ use VeraTag\VeraTagBackend\HttpEndpoints;
 
 final class ServiceFactory
 {
+    public function createLogger(): Logger
+    {
+        return new WordPressLogger(GeneratedBuildConfig::ERROR_LOGGING_ENABLED);
+    }
+
     public function createAdminShellBootstrap(): AdminShellBootstrap
     {
         return new AdminShellBootstrap();
@@ -88,7 +97,7 @@ final class ServiceFactory
     }
     public function createVerificationFileConfigurationService(): VerificationFileConfigurationService
     {
-        return new VerificationFileConfigurationService();
+        return new VerificationFileConfigurationService($this->fileOperations());
     }
 
     public function createDisclosureSchema(): DisclosureSchema
@@ -146,11 +155,15 @@ final class ServiceFactory
     }
     private function pushInstructionTransaction(): PushInstructionTransactionService
     {
-        return new PushInstructionTransactionService();
+        return new PushInstructionTransactionService($this->createLogger());
     }
     public function createRenderScriptFileWriter(): RenderScriptFileWriter
     {
-        return new RenderScriptFileWriter();
+        return new RenderScriptFileWriter($this->fileOperations());
+    }
+    private function fileOperations(): FileOperations
+    {
+        return new WordPressFileOperations();
     }
     private function fileWriter(): RenderScriptFileWriter
     {
@@ -197,7 +210,7 @@ final class ServiceFactory
             $this->createDictionaryGarbageCollector(),
             $this->createRenderScriptReconciliationService(),
             $this->createContentItemIssueAggregationService(),
-            new DisclosureSnapshotTransactionService()
+            new DisclosureSnapshotTransactionService($this->createLogger())
         );
     }
     public function createPullSynchronizationScheduler(): PullSynchronizationScheduler

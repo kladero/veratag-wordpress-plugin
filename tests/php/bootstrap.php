@@ -13,7 +13,7 @@ set_error_handler(static function (int $severity, string $message, string $file,
     throw new ErrorException($message, 0, $severity, $file, $line);
 });
 if (!defined('ABSPATH')) {
-    define('ABSPATH', '/synthetic-wordpress/');
+    define('ABSPATH', sys_get_temp_dir() . '/veratag-wordpress-tests-' . getmypid() . '/');
 }
 if (!defined('ARRAY_A')) {
     define('ARRAY_A', 'ARRAY_A');
@@ -97,6 +97,40 @@ function untrailingslashit(string $s): string
 {
     return rtrim($s, '/');
 }
+function wp_mkdir_p(string $target): bool
+{
+    return is_dir($target) || mkdir($target, 0777, true);
+}
+function wp_delete_file_from_directory(string $file, string $directory): bool
+{
+    $real_file = realpath($file);
+    $real_directory = realpath($directory);
+    if (false === $real_file || false === $real_directory) {
+        return false;
+    }
+    $normalized_file = str_replace('\\', '/', $real_file);
+    $normalized_directory = rtrim(str_replace('\\', '/', $real_directory), '/') . '/';
+    if (!str_starts_with($normalized_file, $normalized_directory)) {
+        return false;
+    }
+    return unlink($file);
+}
+function wp_upload_dir(): array
+{
+    return [
+        'basedir' => $GLOBALS['test_upload_basedir'],
+        'baseurl' => 'https://site.example.test/wp-content/uploads',
+        'error' => false,
+    ];
+}
+function sanitize_file_name(string $file_name): string
+{
+    $sanitized = preg_replace('/[^A-Za-z0-9._-]+/', '-', $file_name);
+    if (null === $sanitized) {
+        throw new RuntimeException('Unable to sanitize test file name.');
+    }
+    return trim($sanitized, '.-');
+}
 function wp_json_encode(mixed $data, int $options = 0): string|false
 {
     return json_encode($data, $options | JSON_INVALID_UTF8_SUBSTITUTE);
@@ -126,6 +160,10 @@ final class FixtureWpdb
     /** @var array<string,list<array<string,mixed>>> */
     public array $tables = [];
     public array $queries = [];
+    /** @var list<string> */
+    public array $prepared_query_templates = [];
+    /** @var list<list<mixed>> */
+    public array $prepared_query_arguments = [];
     public string $last_error = '';
     public int $insert_id = 0;
     /** @var array<string,int> */
@@ -159,6 +197,8 @@ final class FixtureWpdb
         if (count($values) === 1 && is_array($values[0])) {
             $values = $values[0];
         }
+        $this->prepared_query_templates[] = $sql;
+        $this->prepared_query_arguments[] = array_values($values);
         $i = 0;
         return preg_replace_callback('/%[sdi]/', static function ($m) use (&$i, $values): string {
             $v = $values[$i++] ?? null;
@@ -357,8 +397,41 @@ function error_code(string $expected, mixed $result): void
     truth(is_wp_error($result), 'Expected WP_Error');
     same($expected, $result->get_error_code());
 }
+function remove_test_directory(string $directory): void
+{
+    if (!is_dir($directory)) {
+        return;
+    }
+    $entries = scandir($directory);
+    if (false === $entries) {
+        throw new RuntimeException("Unable to list test directory: {$directory}");
+    }
+    foreach ($entries as $entry) {
+        if ('.' === $entry || '..' === $entry) {
+            continue;
+        }
+        $path = $directory . '/' . $entry;
+        if (is_dir($path)) {
+            remove_test_directory($path);
+        } elseif (!unlink($path)) {
+            throw new RuntimeException("Unable to remove test file: {$path}");
+        }
+    }
+    if (!rmdir($directory)) {
+        throw new RuntimeException("Unable to remove test directory: {$directory}");
+    }
+}
 function reset_fixtures(): void
 {
+    $test_wordpress_root = untrailingslashit(ABSPATH);
+    remove_test_directory($test_wordpress_root);
+    if (!mkdir($test_wordpress_root, 0777, true)) {
+        throw new RuntimeException("Unable to create test WordPress root: {$test_wordpress_root}");
+    }
+    $GLOBALS['test_upload_basedir'] = $test_wordpress_root . '/wp-content/uploads';
+    if (!mkdir($GLOBALS['test_upload_basedir'], 0777, true)) {
+        throw new RuntimeException('Unable to create test uploads directory.');
+    }
     $GLOBALS['test_options'] = [];
     $GLOBALS['test_locale'] = 'en_US';
     $GLOBALS['test_home_url'] = 'https://site.example.test';
@@ -369,4 +442,7 @@ function reset_fixtures(): void
         $GLOBALS['wpdb']->tables['test_' . $table] = [];
     }
 }
+register_shutdown_function(static function (): void {
+    remove_test_directory(untrailingslashit(ABSPATH));
+});
 reset_fixtures();

@@ -227,7 +227,7 @@ npm run zip:release
 
 ```text
 dist/
-└── veratag-wordpress-plugin-release-<version>.zip
+└── veratag-release-<version>.zip
 ```
 
 The command runs the TypeScript/Vite UI build and then the standalone ZIP packager at [`scripts/build-zip-release.mjs`](scripts/build-zip-release.mjs).
@@ -236,7 +236,7 @@ The command runs the TypeScript/Vite UI build and then the standalone ZIP packag
 <summary><strong>What's inside the generated ZIP?</strong></summary>
 
 ```text
-veratag-wordpress-plugin/
+veratag/
 ├── veratag-wordpress-plugin.php   # WordPress plugin entry point
 ├── src/php/                       # PHP implementation
 ├── assets/                        # Compiled admin UI and runtime assets
@@ -268,6 +268,8 @@ The PHP entry point sits at the repository root and keeps that position in the p
 │   ├── php/                     # Plugin implementation (PHP, PSR-4 classes)
 │   │   ├── Bootstrap/
 │   │   ├── Features/
+│   │   ├── Filesystem/
+│   │   ├── Logging/
 │   │   ├── Persistence/
 │   │   ├── Settings/
 │   │   └── VeraTagBackend/
@@ -304,7 +306,7 @@ No. Pull synchronization runs independently. Push synchronization is an optional
 <details>
 <summary><strong>Can I install this GitHub source ZIP directly in WordPress?</strong></summary>
 
-No. This is a **source repository** with its PHP entry point (`veratag-wordpress-plugin.php`) in the repository root. Run `npm ci` and `npm run zip:release`, then upload `dist/veratag-wordpress-plugin-release-<version>.zip` to WordPress.
+No. This is a **source repository** with its PHP entry point (`veratag-wordpress-plugin.php`) in the repository root. Run `npm ci` and `npm run zip:release`, then upload `dist/veratag-release-<version>.zip` to WordPress.
 
 </details>
 

@@ -78,7 +78,7 @@ final class DisclosureSchema
             $wpdb->prefix . 'veratag_fetch_script_information',
         );
         foreach ($obsolete as $table_name) {
-            $wpdb->query("DROP TABLE IF EXISTS {$table_name}"); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query($wpdb->prepare('DROP TABLE IF EXISTS %i', $table_name));
         }
 
         $this->content_item_issues_table->drop();

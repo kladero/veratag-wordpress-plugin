@@ -47,7 +47,10 @@ final class PagesRepository
     public function findByUrl(string $page_url): ?array
     {
         global $wpdb;
-        $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $this->pages_table->getTableName() . ' WHERE page_url = %s LIMIT 1', $page_url), ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $row = $wpdb->get_row(
+            $wpdb->prepare('SELECT * FROM %i WHERE page_url = %s LIMIT 1', $this->pages_table->getTableName(), $page_url),
+            ARRAY_A
+        );
         return is_array($row) ? $row : null;
     }
     /** @param string[] $page_urls */
@@ -62,7 +65,11 @@ final class PagesRepository
         $query_suffix_conditions = implode(' OR ', array_fill(0, count($page_urls), 'page_url LIKE %s'));
         $query_suffix_patterns   = array_map(static fn (string $page_url): string => $wpdb->esc_like($page_url) . '?%', $page_urls);
         $rows                    = $wpdb->get_results(
-            $wpdb->prepare('SELECT * FROM ' . $this->pages_table->getTableName() . " WHERE page_url IN ({$exact_placeholders}) OR ({$query_suffix_conditions}) ORDER BY id ASC", array_merge($page_urls, $query_suffix_patterns)), // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- The generated placeholder list and values are both controlled here.
+            $wpdb->prepare(
+                // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- Generated fragments contain only fixed %s tokens; all arguments are passed to prepare().
+                'SELECT * FROM %i WHERE page_url IN (' . $exact_placeholders . ') OR (' . $query_suffix_conditions . ') ORDER BY id ASC',
+                array_merge(array( $this->pages_table->getTableName() ), $page_urls, $query_suffix_patterns)
+            ),
             ARRAY_A
         );
         return is_array($rows) ? $rows : array();
@@ -86,13 +93,19 @@ final class PagesRepository
     public function findByDisclosureFetchId(int $id): array
     {
         global $wpdb;
-        $rows = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $this->pages_table->getTableName() . ' WHERE disclosure_fetch_id = %d ORDER BY id ASC', $id), ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $rows = $wpdb->get_results(
+            $wpdb->prepare('SELECT * FROM %i WHERE disclosure_fetch_id = %d ORDER BY id ASC', $this->pages_table->getTableName(), $id),
+            ARRAY_A
+        );
         return is_array($rows) ? $rows : array();
     }
     public function findAll(): array
     {
         global $wpdb;
-        $rows = $wpdb->get_results('SELECT * FROM ' . $this->pages_table->getTableName() . ' ORDER BY id ASC', ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $rows = $wpdb->get_results(
+            $wpdb->prepare('SELECT * FROM %i ORDER BY id ASC', $this->pages_table->getTableName()),
+            ARRAY_A
+        );
         return is_array($rows) ? $rows : array();
     }
     public function deleteByIds(array $ids): void
@@ -113,7 +126,7 @@ final class PagesRepository
     public function deleteAll(): bool|WP_Error
     {
         global $wpdb;
-        $deleted = $wpdb->query('DELETE FROM ' . $this->pages_table->getTableName()); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $deleted = $wpdb->query($wpdb->prepare('DELETE FROM %i', $this->pages_table->getTableName()));
         if (false === $deleted) {
             return new WP_Error(
                 'veratag_disclosure_persistence_db_error',

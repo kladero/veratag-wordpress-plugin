@@ -2,12 +2,17 @@
 
 namespace VeraTag\Features\VerificationFileConfiguration;
 
+use VeraTag\Filesystem\FileOperations;
 use WP_Error;
 
 final class VerificationFileConfigurationService
 {
     private const VERIFICATION_FILE_PREFIX = 'veratag-verify-';
     private const VERIFICATION_FILE_SUFFIX = '.txt';
+
+    public function __construct(private FileOperations $file_operations)
+    {
+    }
 
     public function getVerificationFileState(): array
     {
@@ -69,7 +74,7 @@ final class VerificationFileConfigurationService
 
         $well_known_directory = $this->getWellKnownDirectoryPath();
 
-        if (! is_dir($well_known_directory) && ! wp_mkdir_p($well_known_directory)) {
+        if (! $this->file_operations->createDirectory($well_known_directory)) {
             return new WP_Error(
                 'veratag_settings_failed_to_create_well_known_directory',
                 'Unable to create the .well-known directory.',
@@ -79,7 +84,7 @@ final class VerificationFileConfigurationService
 
         $verification_file_path = $this->getVerificationFilePathForToken($normalized_token);
 
-        if (false === file_put_contents($verification_file_path, $normalized_token)) {
+        if (! $this->file_operations->writeAtomically($verification_file_path, $normalized_token)) {
             return new WP_Error(
                 'veratag_settings_failed_to_write_verification_file',
                 'Unable to create the verification file.',
@@ -95,7 +100,12 @@ final class VerificationFileConfigurationService
         $configured_verification_file_paths = $this->findConfiguredVerificationFilePaths();
 
         foreach ($configured_verification_file_paths as $configured_verification_file_path) {
-            if (! unlink($configured_verification_file_path)) {
+            if (
+                ! $this->file_operations->deleteFileWithinDirectory(
+                    $configured_verification_file_path,
+                    $this->getWellKnownDirectoryPath()
+                )
+            ) {
                 return new WP_Error(
                     'veratag_settings_failed_to_delete_verification_file',
                     'Unable to delete the existing verification file.',
@@ -103,32 +113,7 @@ final class VerificationFileConfigurationService
                 );
             }
         }
-        if (! $this->removeWellKnownDirectoryIfEmpty()) {
-            return new WP_Error(
-                'veratag_settings_failed_to_delete_empty_well_known_directory',
-                'Unable to delete the empty .well-known directory.',
-                array( 'status' => 500 )
-            );
-        }
-
         return true;
-    }
-
-    /** Removes the shared directory only when no other application has files in it. */
-    private function removeWellKnownDirectoryIfEmpty(): bool
-    {
-        $well_known_directory = $this->getWellKnownDirectoryPath();
-        if (! is_dir($well_known_directory)) {
-            return true;
-        }
-        $directory_entries = scandir($well_known_directory);
-        if (false === $directory_entries) {
-            return false;
-        }
-        if (array( '.', '..' ) !== $directory_entries) {
-            return true;
-        }
-        return rmdir($well_known_directory); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
     }
 
     private function getWellKnownDirectoryPath(): string
@@ -165,29 +150,26 @@ final class VerificationFileConfigurationService
     {
         $well_known_directory = $this->getWellKnownDirectoryPath();
 
-        if (! is_dir($well_known_directory)) {
+        if (! $this->file_operations->directoryExists($well_known_directory)) {
             return array();
         }
 
-        $configured_verification_file_paths = glob(
-            $well_known_directory
-            . '/'
-            . self::VERIFICATION_FILE_PREFIX
-            . '*'
-            . self::VERIFICATION_FILE_SUFFIX
-        );
-
-        if (false === $configured_verification_file_paths) {
+        $directory_entries = $this->file_operations->listDirectory($well_known_directory);
+        if (null === $directory_entries) {
             return array();
         }
 
+        $configured_verification_file_paths = array();
+        foreach ($directory_entries as $directory_entry) {
+            if (1 !== preg_match('/^veratag-verify-[A-Za-z0-9_-]+\.txt$/D', $directory_entry)) {
+                continue;
+            }
+            $file_path = $well_known_directory . '/' . $directory_entry;
+            if ($this->file_operations->isRegularFile($file_path)) {
+                $configured_verification_file_paths[] = $file_path;
+            }
+        }
         sort($configured_verification_file_paths);
-
-        return array_values(
-            array_filter(
-                $configured_verification_file_paths,
-                static fn (mixed $configured_verification_file_path): bool => is_string($configured_verification_file_path)
-            )
-        );
+        return $configured_verification_file_paths;
     }
 }

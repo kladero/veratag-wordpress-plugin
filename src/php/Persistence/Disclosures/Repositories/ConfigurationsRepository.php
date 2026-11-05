@@ -72,7 +72,10 @@ final class ConfigurationsRepository
     public function findByRef(string $ref): ?array
     {
         global $wpdb;
-        $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $this->configurations_table->getTableName() . ' WHERE ref = %s', $ref), ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $row = $wpdb->get_row(
+            $wpdb->prepare('SELECT * FROM %i WHERE ref = %s', $this->configurations_table->getTableName(), $ref),
+            ARRAY_A
+        );
         return is_array($row) ? $row : null;
     }
     /** @param string[] $refs */
@@ -95,7 +98,10 @@ final class ConfigurationsRepository
     public function findAll(): array
     {
         global $wpdb;
-        $rows = $wpdb->get_results('SELECT * FROM ' . $this->configurations_table->getTableName() . ' ORDER BY ref ASC', ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $rows = $wpdb->get_results(
+            $wpdb->prepare('SELECT * FROM %i ORDER BY ref ASC', $this->configurations_table->getTableName()),
+            ARRAY_A
+        );
         return is_array($rows) ? $rows : array();
     }
 

@@ -43,7 +43,10 @@ final class RenderScriptFetchStatusesRepository
     public function findByFileName(string $file_name): ?array
     {
         global $wpdb;
-        $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $this->table->getTableName() . ' WHERE file_name = %s', $file_name), ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $row = $wpdb->get_row(
+            $wpdb->prepare('SELECT * FROM %i WHERE file_name = %s', $this->table->getTableName(), $file_name),
+            ARRAY_A
+        );
         return is_array($row) ? $row : null;
     }
     public function deleteByFileName(string $file_name): void

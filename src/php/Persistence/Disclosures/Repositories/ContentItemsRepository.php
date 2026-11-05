@@ -78,7 +78,15 @@ final class ContentItemsRepository
     public function findByPageAndContentId(int $page_id, string $content_id): ?array
     {
         global $wpdb;
-        $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $this->content_items_table->getTableName() . ' WHERE page_id = %d AND content_id = %s LIMIT 1', $page_id, $content_id), ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $row = $wpdb->get_row(
+            $wpdb->prepare(
+                'SELECT * FROM %i WHERE page_id = %d AND content_id = %s LIMIT 1',
+                $this->content_items_table->getTableName(),
+                $page_id,
+                $content_id
+            ),
+            ARRAY_A
+        );
         return is_array($row) ? $row : null;
     }
     public function findByPageUrlAndContentId(string $page_url, string $content_id): ?array
@@ -116,7 +124,10 @@ final class ContentItemsRepository
     public function findByPageId(int $page_id): array
     {
         global $wpdb;
-        $rows = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $this->content_items_table->getTableName() . ' WHERE page_id = %d ORDER BY id ASC', $page_id), ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $rows = $wpdb->get_results(
+            $wpdb->prepare('SELECT * FROM %i WHERE page_id = %d ORDER BY id ASC', $this->content_items_table->getTableName(), $page_id),
+            ARRAY_A
+        );
         return is_array($rows) ? $rows : array();
     }
     /** @param int[] $page_ids */
@@ -129,7 +140,11 @@ final class ContentItemsRepository
         }
         $placeholders = implode(', ', array_fill(0, count($page_ids), '%d'));
         $rows         = $wpdb->get_results(
-            $wpdb->prepare('SELECT * FROM ' . $this->content_items_table->getTableName() . " WHERE page_id IN ({$placeholders}) AND is_disclosed = 1 AND configuration_ref IS NOT NULL AND configuration_ref <> '' ORDER BY page_id ASC, id ASC", $page_ids), // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- The generated placeholder list and values are both controlled here.
+            $wpdb->prepare(
+                // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- Generated list contains fixed %d tokens; all arguments are passed to prepare().
+                'SELECT * FROM %i WHERE page_id IN (' . $placeholders . ") AND is_disclosed = 1 AND configuration_ref IS NOT NULL AND configuration_ref <> '' ORDER BY page_id ASC, id ASC",
+                array_merge(array( $this->content_items_table->getTableName() ), $page_ids)
+            ),
             ARRAY_A
         );
         return is_array($rows) ? $rows : array();
@@ -137,32 +152,42 @@ final class ContentItemsRepository
     public function findAll(): array
     {
         global $wpdb;
-        $rows = $wpdb->get_results('SELECT * FROM ' . $this->content_items_table->getTableName() . ' ORDER BY id ASC', ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $rows = $wpdb->get_results(
+            $wpdb->prepare('SELECT * FROM %i ORDER BY id ASC', $this->content_items_table->getTableName()),
+            ARRAY_A
+        );
         return is_array($rows) ? $rows : array();
     }
     public function findDistinctConfigurationRefs(): array
     {
         global $wpdb;
-        $refs = $wpdb->get_col('SELECT DISTINCT configuration_ref FROM ' . $this->content_items_table->getTableName() . ' WHERE configuration_ref IS NOT NULL AND configuration_ref <> \'\''); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $refs = $wpdb->get_col(
+            $wpdb->prepare("SELECT DISTINCT configuration_ref FROM %i WHERE configuration_ref IS NOT NULL AND configuration_ref <> ''", $this->content_items_table->getTableName())
+        );
         return array_values(array_filter(array_map('strval', $refs)));
     }
     public function countByConfigurationRef(string $ref): int
     {
         global $wpdb;
-        $count = $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM ' . $this->content_items_table->getTableName() . ' WHERE configuration_ref = %s', $ref)); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $count = $wpdb->get_var(
+            $wpdb->prepare('SELECT COUNT(*) FROM %i WHERE configuration_ref = %s', $this->content_items_table->getTableName(), $ref)
+        );
         return null === $count ? 0 : (int) $count;
     }
     /** Every content item row currently pointing at {@code ref} — for fanning a configuration-tier issue change out to each one's aggregated issues. */
     public function findByConfigurationRef(string $ref): array
     {
         global $wpdb;
-        $rows = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $this->content_items_table->getTableName() . ' WHERE configuration_ref = %s', $ref), ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $rows = $wpdb->get_results(
+            $wpdb->prepare('SELECT * FROM %i WHERE configuration_ref = %s', $this->content_items_table->getTableName(), $ref),
+            ARRAY_A
+        );
         return is_array($rows) ? $rows : array();
     }
     public function countAll(): int
     {
         global $wpdb;
-        $count = $wpdb->get_var('SELECT COUNT(*) FROM ' . $this->content_items_table->getTableName()); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $count = $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM %i', $this->content_items_table->getTableName()));
         return null === $count ? 0 : (int) $count;
     }
 
@@ -199,13 +224,9 @@ final class ContentItemsRepository
         $order_by_sql                 = $this->resolveOrderByClause($sort_column, $sort_direction);
         $content_items_table          = $this->content_items_table->getTableName();
         $pages_table                  = $this->pagesTableName();
-        $issues_table                 = $this->contentItemIssuesTableName();
-
-        $sql    = "SELECT ci.*, p.page_url AS page_url FROM {$content_items_table} ci INNER JOIN {$pages_table} p ON p.id = ci.page_id WHERE {$where_sql} ORDER BY {$order_by_sql} LIMIT %d OFFSET %d"; // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $params = array_merge($where_params, array( $limit, $offset ));
+        $sql    = 'SELECT ci.*, p.page_url AS page_url FROM %i ci INNER JOIN %i p ON p.id = ci.page_id WHERE ' . $where_sql . ' ORDER BY ' . $order_by_sql . ' LIMIT %d OFFSET %d'; // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- WHERE and ORDER BY contain only internal placeholder templates and allowlisted fragments.
+        $params = array_merge(array( $content_items_table, $pages_table ), $where_params, array( $limit, $offset ));
         $rows   = $wpdb->get_results($wpdb->prepare($sql, $params), ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-
-        unset($issues_table);
         return is_array($rows) ? $rows : array();
     }
 
@@ -223,10 +244,11 @@ final class ContentItemsRepository
         $content_items_table          = $this->content_items_table->getTableName();
         $pages_table                  = $this->pagesTableName();
 
-        $sql   = "SELECT COUNT(*) FROM {$content_items_table} ci INNER JOIN {$pages_table} p ON p.id = ci.page_id WHERE {$where_sql}"; // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $count = array() === $where_params
-            ? $wpdb->get_var($sql) // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-            : $wpdb->get_var($wpdb->prepare($sql, $where_params)); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $sql   = 'SELECT COUNT(*) FROM %i ci INNER JOIN %i p ON p.id = ci.page_id WHERE ' . $where_sql; // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- WHERE contains only internal placeholder templates.
+        $count = $wpdb->get_var(
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- The query template contains only fixed identifiers and internally generated placeholder fragments.
+            $wpdb->prepare($sql, array_merge(array( $content_items_table, $pages_table ), $where_params))
+        );
         return null === $count ? 0 : (int) $count;
     }
 
@@ -242,7 +264,11 @@ final class ContentItemsRepository
         $content_items_table = $this->content_items_table->getTableName();
         $pages_table         = $this->pagesTableName();
         $rows                = $wpdb->get_results(
-            "SELECT p.page_url AS page_url, COUNT(*) AS content_count FROM {$content_items_table} ci INNER JOIN {$pages_table} p ON p.id = ci.page_id GROUP BY p.page_url ORDER BY p.page_url ASC", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->prepare(
+                'SELECT p.page_url AS page_url, COUNT(*) AS content_count FROM %i ci INNER JOIN %i p ON p.id = ci.page_id GROUP BY p.page_url ORDER BY p.page_url ASC',
+                $content_items_table,
+                $pages_table
+            ),
             ARRAY_A
         );
         if (! is_array($rows)) {
@@ -327,14 +353,14 @@ final class ContentItemsRepository
         if (array() !== $issue_impacts) {
             $wants_none       = in_array('none', $issue_impacts, true);
             $wanted_impacts   = array_values(array_filter($issue_impacts, static fn (string $v): bool => 'none' !== $v));
-            $issues_table     = $this->contentItemIssuesTableName();
             $issue_conditions = array();
             if (array() !== $wanted_impacts) {
-                $issue_conditions[] = "EXISTS (SELECT 1 FROM {$issues_table} cii WHERE cii.content_item_id = ci.id AND cii.impact IN (" . $this->placeholders(count($wanted_impacts)) . '))'; // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-                array_push($params, ...$wanted_impacts);
+                $issue_conditions[] = 'EXISTS (SELECT 1 FROM %i cii WHERE cii.content_item_id = ci.id AND cii.impact IN (' . $this->placeholders(count($wanted_impacts)) . '))';
+                array_push($params, $this->contentItemIssuesTableName(), ...$wanted_impacts);
             }
             if ($wants_none) {
-                $issue_conditions[] = "NOT EXISTS (SELECT 1 FROM {$issues_table} cii WHERE cii.content_item_id = ci.id)"; // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+                $issue_conditions[] = 'NOT EXISTS (SELECT 1 FROM %i cii WHERE cii.content_item_id = ci.id)';
+                $params[]           = $this->contentItemIssuesTableName();
             }
             if (array() !== $issue_conditions) {
                 $conditions[] = '(' . implode(' OR ', $issue_conditions) . ')';
@@ -389,7 +415,7 @@ final class ContentItemsRepository
     public function deleteAll(): bool|WP_Error
     {
         global $wpdb;
-        $deleted = $wpdb->query('DELETE FROM ' . $this->content_items_table->getTableName()); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $deleted = $wpdb->query($wpdb->prepare('DELETE FROM %i', $this->content_items_table->getTableName()));
         if (false === $deleted) {
             return new WP_Error(
                 'veratag_disclosure_persistence_db_error',
